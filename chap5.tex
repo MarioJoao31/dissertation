@@ -1,0 +1,140 @@
+\chapter{Results and Discussion}
+\label{chap:results}
+
+% =====================================================================
+% OUTLINE CHAPTER. Framework and ground truth are real; every number is a
+% placeholder to be filled from actual scan runs. Do not invent figures.
+% Fill order: run each victim server (targets/), run discover+attack, record
+% per-category outcome, then fill Tables 5.x and the benchmark numbers.
+% =====================================================================
+
+This chapter evaluates the tool. It describes the evaluation design and the corpus of targets, reports the benchmark and detection results, compares the static and dynamic paths on the same servers, and discusses what the results do and do not establish, including the threats to their validity.
+
+\section{Evaluation Design}
+\label{sec:eval-design}
+
+% WRITE-UP NOTES:
+% - Restate the research question (Section 1.2) as the thing being measured.
+% - Metrics (named in the method, Chapter 1): vulnerability detection rate,
+%   false-positive rate, attack coverage, performance overhead.
+% - Ground truth: the 9 victim servers in targets/. Each pairs a genuinely
+%   exploitable tool with a SAFE CONTROL of the same shape. This is the label:
+%   a correct scan flags the vulnerable tool and leaves the control alone.
+%   => detection rate from the vulnerable tools, false-positive rate from the
+%      controls. State this is a small, author-built corpus (threat to validity).
+% - Secondary corpus: datasets/ (88 entries: 27 documented real-world
+%   incidents/CVEs + 61 synthetic payloads), used as the payload source and as
+%   external grounding for the taxonomy, not as a detection benchmark.
+% - Environment: sequential baseline (MAX_CONCURRENT_TOOLS=1), which model /
+%   provider, which mutation setting. Record for reproducibility.
+
+The evaluation is built around the nine intentionally-vulnerable MCP servers that ship with the project. Each server is a single file that pairs a genuinely exploitable tool with a safe control tool of the same shape, so a correct scan flags the first and leaves the second untouched. That pairing is the ground truth: the exploitable tools yield the detection rate, and the controls yield the false-positive rate. Table~\ref{tab:targets} lists the corpus.
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{p{3.0cm} p{4.2cm} p{3.0cm} p{2.6cm}}
+\hline
+\textbf{Server} & \textbf{Category} & \textbf{Vulnerable tool} & \textbf{Safe control} \\
+\hline
+db & sql\_injection & run\_query & find\_user \\
+devops & command\_injection, dos & ping\_host, grep\_logs & run\_command\_safe \\
+files & path\_traversal & read\_file & read\_doc \\
+fetch & ssrf & fetch\_url & fetch\_allowlisted \\
+secrets & information\_extraction & get\_config & get\_public\_config \\
+notes & resource\_extraction, memory poisoning & list\_all\_notes, save\_note & get\_my\_notes \\
+admin & auth\_access\_control & promote\_user & whoami \\
+parser & deserialization & load\_config & load\_json \\
+assistant & jailbreak / prompt injection & summarize & safe\_summarize \\
+\hline
+\end{tabular}
+\caption{The victim-server corpus. Each vulnerable tool has a matched safe control.}
+\label{tab:targets}
+\end{table}
+
+% Note honestly here: two categories are known-under-detected by the current
+% executor (auth_access_control needs a low-priv session; cross-session memory
+% poisoning needs a second session). These are expected misses, documented, and
+% belong in the discussion, not hidden.
+
+\section{Benchmarks}
+\label{sec:benchmarks}
+
+% WRITE-UP NOTES — fill from real runs:
+% - Per-server: #tools discovered, #categories assigned, #attacks sent,
+%   wall-clock scan time, LLM token usage / estimated cost (from Langfuse).
+% - Report the sequential baseline; if parallelism was measured, report the
+%   speedup and confirm the finding SET was identical (only order/speed changed).
+% - Mutation on vs off: effect on #attacks sent and on detections.
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{p{2.6cm} r r r r r}
+\hline
+\textbf{Server} & \textbf{Tools} & \textbf{Categories} & \textbf{Attacks} & \textbf{Time (s)} & \textbf{Cost} \\
+\hline
+db & TODO & TODO & TODO & TODO & TODO \\
+devops & TODO & TODO & TODO & TODO & TODO \\
+\dots & & & & & \\
+\hline
+\end{tabular}
+\caption{Per-scan benchmarks on the victim corpus (sequential baseline). TODO: fill from runs.}
+\label{tab:benchmarks}
+\end{table}
+
+\section{Detection Results}
+\label{sec:detection}
+
+% WRITE-UP NOTES — fill from real runs:
+% - One row per server. Columns: vulnerable tool flagged? (expected yes),
+%   control flagged? (expected no), confidence, evidence span quoted by judge.
+% - Compute detection rate = flagged vulnerable / total vulnerable;
+%   false-positive rate = flagged controls / total controls.
+% - Call out the grounded-judge overrule count: how many "vulnerable" verdicts
+%   were flipped because the evidence quote was absent. This is a key result:
+%   it is the false-positive-suppression mechanism doing visible work.
+% - Add a column "Max CVSS" per server (ScanReport.max_cvss) to the
+%   per-server table; it is the single aggregate metric of a scan.
+% - Severity counts per band come from CVSS, so they are comparable across
+%   providers/models (the judge no longer sets severity).
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{p{2.6cm} p{2.4cm} p{2.4cm} p{2.0cm} p{2.4cm}}
+\hline
+\textbf{Server} & \textbf{Vuln. flagged} & \textbf{Control flagged} & \textbf{Conf.} & \textbf{Evidence} \\
+\hline
+db & TODO & TODO & TODO & TODO \\
+\dots & & & & \\
+\hline
+\end{tabular}
+\caption{Detection outcome per server. Expected: vulnerable flagged, control not. TODO: fill from runs.}
+\label{tab:detection}
+\end{table}
+
+\section{Static versus Dynamic Agreement}
+\label{sec:agreement}
+
+% WRITE-UP NOTES:
+% - Run the static analyzer over the same 9 server source files and compare,
+%   per category, against the dynamic findings.
+% - Three buckets: (a) both agree, (b) static flagged code the live payload
+%   could not reach, (c) a live finding with no static signal.
+% - This comparison is itself a result: the shared taxonomy makes it a join.
+
+\section{Discussion}
+\label{sec:discussion}
+
+% WRITE-UP NOTES — interpret, don't just restate the tables:
+% - What the detection/false-positive numbers say about the research question.
+% - The two known misses (auth, cross-session poisoning): honest gaps, with the
+%   executor limitation that causes each, not server bugs.
+% - Effect of the grounded judge on false positives (from the overrule count).
+% - Effect of mutations on filter-bypass categories.
+% - Threats to validity: small author-built corpus; confidence is the model's
+%   self-report, not calibrated; timing-based checks are noisy under load.
+%   These set up the limitations and future work in Chapter 6.
+% - Note that every finding of one category gets the same score; the score
+%   ranks classes of weakness, not the specific evidence of a finding.

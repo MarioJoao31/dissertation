@@ -1,0 +1,80 @@
+\chapter{Conclusion}
+\label{chap:conclusion}
+
+% =====================================================================
+% OUTLINE CHAPTER. Bullet notes mark what each section argues. Write as prose
+% once Chapter 5 numbers exist, so contributions and limitations cite results.
+% =====================================================================
+
+% WRITE-UP NOTES: open by answering the research question from Section 1.2
+% directly, in one or two sentences, grounded in the Chapter 5 results. Avoid a
+% hollow recap; say what was shown, then move to contributions.
+
+\section{Contributions}
+\label{sec:contributions}
+
+% The defensible novelty claims (what existing tools do NOT already do):
+% - Automated LLM classification of unknown tools against a fixed taxonomy,
+%   rather than a human deciding per tool, or a fixed rule set run at everything.
+% - LLM-assisted payload synthesis that adapts to arbitrary tool schemas,
+%   instead of hand-written test cases per tool shape.
+% - Dual rule-based + grounded LLM-judge evaluation: catches known-format and
+%   semantic leaks, and overrules an un-evidenced "vulnerable" verdict.
+% - A deliberate, documented answer to "does the triage step itself trust
+%   untrusted tool descriptions?" (the categorizer floor) — the tool's own
+%   LLM step is exposed to the injection it detects, and the design addresses it.
+% - One taxonomy and one remediation catalog spanning a dynamic and a static
+%   path, so a static finding and a live finding are directly comparable.
+
+\section{Limitations}
+\label{sec:limitations}
+
+% From the project's own "known limitations" — state them plainly:
+% - Confidence scores are the model's self-report, not a calibrated metric; no
+%   precision/recall against a large labeled corpus yet (the victim corpus is
+%   small and author-built).
+% - Timing-based checks (blind SQLi, DoS) are noisy under load / slow networks.
+% - The static payload library is illustrative (DAST-level), not exhaustive.
+% - In-memory credential store does not survive a restart or multiple workers.
+% - No auth on the API itself (matches the "local application" scope).
+% - resource_extraction wildcard probe has no automated success indicator.
+% - Cross-session tests (memory poisoning, cross-tenant) are single-session in
+%   the current executor; auth test lacks a low-privilege session.
+% - No OAuth token auto-refresh between discover and attack; OAuth assumes the
+%   backend and browser share a machine.
+% - Static attribution is co-location (sink inside a tool's body), not data-flow
+%   proof that a parameter reaches the sink; non-Python servers are unparsed.
+
+\section{Future Work}
+\label{sec:future}
+
+% Roughly priority-ordered for the research:
+% - Build and run a precision/recall benchmark against a larger labeled corpus
+%   of vulnerable and known-safe servers — turns "seems to work" into a number.
+% - Automate the two-session tests so the auth and cross-session categories are
+%   actually exercised (removes the two known misses in Chapter 5).
+% - Correlate the static and dynamic paths on one target and report where they
+%   agree, where static reached what the payload could not, and vice versa.
+% - Static analysis: data-flow instead of co-location; parse non-Python
+%   (TypeScript) servers.
+% - Normalize findings into their own indexed table; add schema migrations.
+% - Add authentication to the API if it ever runs beyond the local machine.
+% - Expand payload coverage per category (encoding variants, blind techniques).
+
+\section{Final Remarks}
+\label{sec:final}
+
+% WRITE-UP NOTES: one short, substantive paragraph. State what the artifact
+% establishes about securing MCP servers and why the taxonomy-shared, two-path
+% design is the reusable idea beyond this specific tool. No generic summary.
+
+
+% Limitations:
+% - Scores are category-level base scores: an SQL error message and a full
+%   table dump both get 9.4. Temporal and environmental CVSS metrics are not
+%   used, so the score ignores exploit maturity and the deployment context.
+% Future work:
+% - Let the grounded judge adjust the C/I/A metrics per finding from the
+%   evidence (e.g. raise C when real data leaked), keeping the rest of the
+%   base vector, and recompute the score.
+% - Evaluate CVSS v4.0 once tooling support is mature.

@@ -1,0 +1,156 @@
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}       % image package
+\usepackage{subcaption}     % package to allow images side by side (used in the first page)
+% \usepackage{setspace}       % line spacing package
+\usepackage{array}          % table package
+\usepackage{indentfirst}    % package to allow to indent first paragraph after a heading
+\usepackage[english]{babel}
+\usepackage[left=25mm,top=25mm,bottom=25mm,right=25mm]{geometry}
+\usepackage{ifthen}
+\usepackage{natbib}
+\bibliographystyle{apalike}
+%\bibliographystyle{mei/sp_por}
+
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{setspace}
+
+\lstset{basicstyle=\small,
+        captionpos=b,
+        float=tp,
+        xleftmargin=1.5em,
+        xrightmargin=1.5em,
+        frameround=ttff,
+        frame=single,
+       floatplacement=tbp}
+\def\lstlistlistingname{Listagens de Código}
+\def\lstlistingname{Listagem}
+
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={blue!20!black},
+    citecolor={blue!20!black},
+    urlcolor={blue!20!black}
+}
+
+\setlength{\parskip}{1ex}
+
+\makeatletter
+
+\def\curso{~~}
+\def\MEI{\def\curso{Master's Degree in Applied Artificial Intelligence}}
+
+\def\proposta{~~}
+\def\propostaDissertacao{\renewcommand{\proposta}{Proposta Dissertação}}
+\def\propostaProjeto{\renewcommand{\proposta}{Project Proposal}}
+
+\def\AND{~\\[2mm]}
+\def\orient{~~}
+\newcommand{\orientador}[1]{\def\orient{#1}}
+
+
+
+\renewcommand{\maketitle}{%
+    \newgeometry{left=5mm,top=5mm,bottom=22mm,right=5mm}
+    \thispagestyle{empty}
+    \noindent\includegraphics[width=\textwidth]{mei/logos/header}
+    \vfill
+    \begin{flushright}
+    \begin{minipage}{145mm}
+    \begin{minipage}{110mm}
+        {\Large \bf \curso}\\[20mm]
+        {\large \textsc{\proposta}}\\[25mm]
+        {\LARGE \bf \@title}\\[10mm]
+        {\large \@author}\\[1mm]
+        \vskip 45mm
+        Work carried out under the guidance of:\\[2mm]
+        \orient
+        \vskip 15mm
+        Barcelos, \@date 
+    \end{minipage}
+    \end{minipage}
+    \end{flushright}
+    \cleardoublepage
+    \restoregeometry
+}
+
+\def\backtitle{
+\mbox{}
+\vfill
+\noindent {\large \textbf{Identificação do aluno}}\\[2mm]
+\noindent \@author \\
+Aluno número \nraluno, \regime \newline
+\curso\\[5mm]
+\noindent{\large \textbf{Orientação}}\\[2mm]
+\noindent \orient\\[5mm]
+\ifthenelse{\isundefined{\@empresa}}{}{
+\noindent{\large \textbf{Informação sobre o Estágio}}\\[2mm]
+\noindent \@empresa \newline
+\@eempresa\newline
+\@supervisor
+}
+}
+
+\newenvironment{resumo}{
+\cleardoublepage\mbox{}
+\thispagestyle{plain}
+\vfill
+\begin{center}
+    {\large\textbf{Resumo}}\\[7mm]
+    
+    \begin{minipage}{.8\linewidth}
+    \setlength{\parskip}{2ex}
+}{
+    \end{minipage}
+    \end{center}
+    \vfill\newpage
+}
+
+\newenvironment{abstract}{
+\cleardoublepage\mbox{}
+\thispagestyle{plain}
+\vfill
+\begin{center}
+    {\large\textbf{Abstract}}\\[7mm]
+    
+\begin{minipage}{.8\linewidth}
+    \setlength{\parskip}{2ex}
+}{
+    \end{minipage}
+    \end{center}
+    \vfill\newpage
+}
+
+\newenvironment{agradecimentos}{
+\cleardoublepage\mbox{}
+\thispagestyle{plain}
+\vfill
+\begin{center}
+    {\large\textbf{Agradecimentos}}\\[7mm]
+    
+\begin{minipage}{.8\linewidth}
+    \setlength{\parskip}{2ex}
+}{
+    \end{minipage}
+    \end{center}
+    \vfill\newpage
+    }
+    
+\usepackage{titlesec}
+
+\titleformat{\chapter}{\bfseries\huge}{\thechapter.}{20pt}{\huge\bfseries}    
+
+\usepackage[acronym]{glossaries}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{etoolbox}
+\renewcommand\bibname{BIBLIOGRAPHY}
+\apptocmd{\thebibliography}{\csname phantomsection\endcsname\addcontentsline{toc}{chapter}{\bibname}}{}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\makeatother

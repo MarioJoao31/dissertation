@@ -1,0 +1,94 @@
+\documentclass[a4paper,12pt,twoside]{book}
+\usepackage{mei/mei}
+
+% Diagrams exported from docs/diagrams are included as PDF.
+% On Overleaf you can upload the .svg directly and it is converted on compile;
+% locally, export each images/*.svg to images/*.pdf before building.
+
+\title{ Secure Development and Testing Tool for Model Context Protocol
+Implementations}
+\author{Mário João de Araújo Pinto}
+% \propostaDissertacao % ou \propostaProjeto
+\propostaProjeto
+\MEI
+\date{\today}
+
+
+\pagenumbering{roman}
+%% Caso tenham mais que um orientador, colocar
+%% \orientador{Nome professor \AND Nome professor}
+\orientador{Prof. Nuno Lopes \AND Prof. Rui Fernandes}
+
+% comentar se não for para usar glossários
+\makeglossaries
+
+
+\begin{document}
+
+%\frontmatter
+\maketitle
+
+\begin{resumo}
+A crescente adoção do Model Context Protocol (MCP) tem permitido que sistemas baseados em modelos de linguagem interajam com ferramentas externas, bases de dados e serviços, expandindo significativamente as suas capacidades. Contudo, esta maior conectividade introduz novas superfícies de ataque e riscos de segurança, incluindo ataques de prompt injection, acesso não autorizado a dados, uso indevido de ferramentas e vulnerabilidades agente-para-agente (A2A).
+
+Esta dissertação apresenta o desenvolvimento de uma ferramenta de segurança para implementações MCP, com foco na identificação, mitigação e prevenção de vulnerabilidades específicas deste ecossistema. Seguindo uma abordagem de Design Science Research, foi concebido e validado um artefacto técnico aplicável a contextos reais.
+
+O principal contributo consiste numa ferramenta que combina duas análises complementares sobre a mesma taxonomia de vulnerabilidades: uma análise dinâmica que se liga a um servidor MCP em execução, classifica as suas ferramentas com recurso a um Large Language Model e executa ataques adversariais controlados, e uma análise estática que inspeciona o código-fonte de um servidor sem o executar. O objetivo é estabelecer boas práticas de segurança que reduzam o risco associado à adoção do MCP em ambientes empresariais e infraestruturas críticas.
+
+\vspace{1em}
+\noindent\textbf{Palavras-chave:} Model Context Protocol (MCP); Segurança de Sistemas de IA; \textit{Prompt Injection}; Testes Adversariais; Análise Estática e Dinâmica; \textit{Large Language Models}; \textit{Design Science Research}
+
+
+\end{resumo}
+
+\begin{abstract}
+The increasing adoption of the Model Context Protocol (MCP) has enabled language model--based systems to interact with external tools, databases, and services, significantly expanding their capabilities. However, this increased connectivity introduces new attack surfaces and security risks, including prompt injection attacks, unauthorized data access, tool misuse, and agent-to-agent (A2A) vulnerabilities.
+
+This dissertation presents the development of a security tool for MCP implementations, focusing on the identification, mitigation, and prevention of vulnerabilities specific to this ecosystem. Following a Design Science Research approach, a technical artifact was designed and validated for real-world application.
+
+The main contribution is a tool that combines two complementary analyses over a single vulnerability taxonomy: a dynamic analysis that connects to a running MCP server, classifies its exposed tools with a Large Language Model, and executes controlled adversarial attacks, and a static analysis that inspects a server's source code without executing it. The goal is to establish security best practices that reduce the risks associated with MCP adoption in enterprise and critical infrastructure environments.
+
+
+\vspace{1em}
+\noindent\textbf{Keywords:} Model Context Protocol (MCP); AI Systems Security; Prompt Injection; Adversarial Testing; Static and Dynamic Analysis; Large Language Models; Design Science Research
+\end{abstract}
+
+%% Comment the following part if you are not acknowledging anybody
+%\begin{agradecimentos}
+%A secção de agradecimentos é a parte pessoal do documento, e o único sítio onde o aluno pode escrever de forma menos formal, usando o tipo de linguagem que lhe parecer adequado para as pessoas a quem agradece.
+%\end{agradecimentos}
+
+
+\tableofcontents
+
+% comentar se nao tiver figuras
+\listoffigures
+
+% comentar se nao tiver tabelas
+%\listoftables
+
+% comentar se nao se quiser lista de listagens
+%\lstlistoflistings
+
+% Commentar proximas duas linhas se nao for para usar acronimos
+\input{acronimos}
+\printglossary[type=\acronymtype,title={Acronyms \& Abbreviations}]
+
+% Commentar proximas duas linhas se nao for para usar glossarios
+\input{glossario}
+\printglossary
+
+\pagenumbering{arabic}
+
+\mainmatter
+
+\input{chap1}
+\input{chap2}
+\input{chap3}
+\input{chap4}
+\input{chap5}
+\input{chap6}
+
+\bibliography{biblio}
+
+\end{document}

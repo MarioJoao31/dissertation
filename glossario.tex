@@ -1,0 +1,96 @@
+\newglossaryentry{prompt_injection}{
+    name=Prompt Injection,
+    description={Attack technique in which malicious instructions are embedded within input prompts to manipulate the behavior of a language model and override system-level constraints}
+}
+
+\newglossaryentry{static_analysis}{
+    name=Static Analysis,
+    description={Security testing technique that examines source code without executing it in order to identify structural vulnerabilities and insecure patterns}
+}
+
+\newglossaryentry{dynamic_testing}{
+    name=Dynamic Testing,
+    description={Security testing approach that evaluates a system during runtime to identify vulnerabilities under real execution conditions}
+}
+
+\newglossaryentry{threat_modeling}{
+    name=Threat Modeling,
+    description={Structured methodology for identifying, analyzing, and categorizing potential security threats across system components and trust boundaries}
+}
+
+\newglossaryentry{defense_in_depth}{
+    name=Defense-in-Depth,
+    description={Security strategy based on layering multiple defensive mechanisms to reduce the risk of system compromise}
+}
+
+\newglossaryentry{zero_trust}{
+    name=Zero Trust,
+    description={Security model based on the principle of never trusting and always verifying, requiring strict identity validation and access control regardless of network location}
+}
+
+\newglossaryentry{intrusion_detection}{
+    name=Intrusion Detection,
+    description={Process of monitoring systems and networks to identify malicious activities or policy violations}
+}
+
+
+\newglossaryentry{human_in_the_loop}{
+    name=Human-in-the-Loop,
+    description={Control pattern that requires an explicit human approval before an automated process proceeds to an action with real effects, used here as the gate between read-only discovery and live attack traffic}
+}
+
+\newglossaryentry{payload}{
+    name=Payload,
+    description={Crafted input embedded in a tool call with the intent of reaching a vulnerable code path and triggering or revealing a security weakness}
+}
+
+\newglossaryentry{sink}{
+    name=Sink,
+    description={Point in a program where externally controlled input reaches a sensitive operation, such as a shell command, database query, or file-system access}
+}
+
+\newglossaryentry{canary_string}{
+    name=Canary String,
+    description={Unique known marker planted in a request so that its reappearance in a response deterministically proves data leakage or injection}
+}
+
+\newglossaryentry{fuzzing}{
+    name=Fuzzing,
+    description={Testing technique that submits malformed, unexpected, or boundary inputs to a system in order to surface faults; applied here as a baseline floor against every exposed tool}
+}
+
+\newglossaryentry{command_injection}{
+    name=Command Injection,
+    description={Attack in which attacker-controlled input is passed to a shell or subprocess and executed as part of a system command}
+}
+
+\newglossaryentry{path_traversal}{
+    name=Path Traversal,
+    description={Attack that manipulates file-path parameters to read, write, or delete files outside the directory a tool is intended to access}
+}
+
+\newglossaryentry{deserialization_attack}{
+    name=Insecure Deserialization,
+    description={Attack that abuses the parsing of serialized data (JSON, YAML, or pickled objects) to corrupt application state or execute arbitrary code}
+}
+
+\newglossaryentry{jailbreak}{
+    name=Jailbreak,
+    description={Technique that coerces a language model into ignoring its system-level constraints or safety policies, often combined with prompt injection}
+}
+
+% -> glossario.tex
+\newglossaryentry{filter_evasion}{
+    name=Filter Evasion,
+    description={Techniques that transform an attack payload so it no longer matches a blocklist or input filter while still triggering the same behavior once interpreted}
+}
+
+\newglossaryentry{homoglyph}{
+    name=Homoglyph,
+    description={Character that is visually identical or near-identical to another, used to replace letters in a payload so a literal-string filter fails to match it}
+}
+
+\newglossaryentry{dynamic_client_registration}{
+    name=Dynamic Client Registration,
+    description={OAuth mechanism by which a client registers with an authorization server at runtime to obtain a client identifier, without prior manual configuration}
+}
