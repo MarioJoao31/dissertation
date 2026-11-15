@@ -1,0 +1,1456 @@
+\glsdefs@newdocentry{http}%
+{%
+name={\acronymfont {\glsentryshort {http}}},%
+sort={HTTP},%
+type={acronym},%
+first={HTTP},%
+firstplural={HTTPs},%
+text={HTTP},%
+plural={HTTPs},%
+description={HyperText Transfer Protocol},%
+descriptionplural={HyperText Transfer Protocol},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={HyperText Transfer Protocol},%
+longplural={HyperText Transfer Protocols},%
+short={HTTP},%
+shortplural={HTTPs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{ai}%
+{%
+name={\acronymfont {\glsentryshort {ai}}},%
+sort={AI},%
+type={acronym},%
+first={AI},%
+firstplural={AIs},%
+text={AI},%
+plural={AIs},%
+description={Artificial Intelligence},%
+descriptionplural={Artificial Intelligence},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Artificial Intelligence},%
+longplural={Artificial Intelligences},%
+short={AI},%
+shortplural={AIs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{llm}%
+{%
+name={\acronymfont {\glsentryshort {llm}}},%
+sort={LLM},%
+type={acronym},%
+first={LLM},%
+firstplural={LLMs},%
+text={LLM},%
+plural={LLMs},%
+description={Large Language Model},%
+descriptionplural={Large Language Model},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Large Language Model},%
+longplural={Large Language Models},%
+short={LLM},%
+shortplural={LLMs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{mcp}%
+{%
+name={\acronymfont {\glsentryshort {mcp}}},%
+sort={MCP},%
+type={acronym},%
+first={MCP},%
+firstplural={MCPs},%
+text={MCP},%
+plural={MCPs},%
+description={Model Context Protocol},%
+descriptionplural={Model Context Protocol},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Model Context Protocol},%
+longplural={Model Context Protocols},%
+short={MCP},%
+shortplural={MCPs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{a2a}%
+{%
+name={\acronymfont {\glsentryshort {a2a}}},%
+sort={A2A},%
+type={acronym},%
+first={A2A},%
+firstplural={A2As},%
+text={A2A},%
+plural={A2As},%
+description={Agent-to-Agent},%
+descriptionplural={Agent-to-Agent},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Agent-to-Agent},%
+longplural={Agent-to-Agents},%
+short={A2A},%
+shortplural={A2As},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{api}%
+{%
+name={\acronymfont {\glsentryshort {api}}},%
+sort={API},%
+type={acronym},%
+first={API},%
+firstplural={APIs},%
+text={API},%
+plural={APIs},%
+description={Application Programming Interface},%
+descriptionplural={Application Programming Interface},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Application Programming Interface},%
+longplural={Application Programming Interfaces},%
+short={API},%
+shortplural={APIs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{cicd}%
+{%
+name={\acronymfont {\glsentryshort {cicd}}},%
+sort={CI/CD},%
+type={acronym},%
+first={CI/CD},%
+firstplural={CI/CDs},%
+text={CI/CD},%
+plural={CI/CDs},%
+description={Continuous Integration and Continuous Deployment},%
+descriptionplural={Continuous Integration and Continuous Deployment},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Continuous Integration and Continuous Deployment},%
+longplural={Continuous Integration and Continuous Deployments},%
+short={CI/CD},%
+shortplural={CI/CDs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{dsr}%
+{%
+name={\acronymfont {\glsentryshort {dsr}}},%
+sort={DSR},%
+type={acronym},%
+first={DSR},%
+firstplural={DSRs},%
+text={DSR},%
+plural={DSRs},%
+description={Design Science Research},%
+descriptionplural={Design Science Research},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Design Science Research},%
+longplural={Design Science Researchs},%
+short={DSR},%
+shortplural={DSRs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{ssdf}%
+{%
+name={\acronymfont {\glsentryshort {ssdf}}},%
+sort={SSDF},%
+type={acronym},%
+first={SSDF},%
+firstplural={SSDFs},%
+text={SSDF},%
+plural={SSDFs},%
+description={Secure Software Development Framework},%
+descriptionplural={Secure Software Development Framework},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Secure Software Development Framework},%
+longplural={Secure Software Development Frameworks},%
+short={SSDF},%
+shortplural={SSDFs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{nist}%
+{%
+name={\acronymfont {\glsentryshort {nist}}},%
+sort={NIST},%
+type={acronym},%
+first={NIST},%
+firstplural={NISTs},%
+text={NIST},%
+plural={NISTs},%
+description={National Institute of Standards and Technology},%
+descriptionplural={National Institute of Standards and Technology},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={National Institute of Standards and Technology},%
+longplural={National Institute of Standards and Technologys},%
+short={NIST},%
+shortplural={NISTs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{airmf}%
+{%
+name={\acronymfont {\glsentryshort {airmf}}},%
+sort={AI RMF},%
+type={acronym},%
+first={AI RMF},%
+firstplural={AI RMFs},%
+text={AI RMF},%
+plural={AI RMFs},%
+description={Artificial Intelligence Risk Management Framework},%
+descriptionplural={Artificial Intelligence Risk Management Framework},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Artificial Intelligence Risk Management Framework},%
+longplural={Artificial Intelligence Risk Management Frameworks},%
+short={AI RMF},%
+shortplural={AI RMFs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{ml}%
+{%
+name={\acronymfont {\glsentryshort {ml}}},%
+sort={ML},%
+type={acronym},%
+first={ML},%
+firstplural={MLs},%
+text={ML},%
+plural={MLs},%
+description={Machine Learning},%
+descriptionplural={Machine Learning},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Machine Learning},%
+longplural={Machine Learnings},%
+short={ML},%
+shortplural={MLs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{stride}%
+{%
+name={\acronymfont {\glsentryshort {stride}}},%
+sort={STRIDE},%
+type={acronym},%
+first={STRIDE},%
+firstplural={STRIDEs},%
+text={STRIDE},%
+plural={STRIDEs},%
+description={Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege},%
+descriptionplural={Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege},%
+longplural={Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privileges},%
+short={STRIDE},%
+shortplural={STRIDEs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{ssrf}%
+{%
+name={\acronymfont {\glsentryshort {ssrf}}},%
+sort={SSRF},%
+type={acronym},%
+first={SSRF},%
+firstplural={SSRFs},%
+text={SSRF},%
+plural={SSRFs},%
+description={Server-Side Request Forgery},%
+descriptionplural={Server-Side Request Forgery},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Server-Side Request Forgery},%
+longplural={Server-Side Request Forgerys},%
+short={SSRF},%
+shortplural={SSRFs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{dos}%
+{%
+name={\acronymfont {\glsentryshort {dos}}},%
+sort={DoS},%
+type={acronym},%
+first={DoS},%
+firstplural={DoSs},%
+text={DoS},%
+plural={DoSs},%
+description={Denial of Service},%
+descriptionplural={Denial of Service},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Denial of Service},%
+longplural={Denial of Services},%
+short={DoS},%
+shortplural={DoSs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{oauth}%
+{%
+name={\acronymfont {\glsentryshort {oauth}}},%
+sort={OAuth},%
+type={acronym},%
+first={OAuth},%
+firstplural={OAuths},%
+text={OAuth},%
+plural={OAuths},%
+description={Open Authorization},%
+descriptionplural={Open Authorization},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Open Authorization},%
+longplural={Open Authorizations},%
+short={OAuth},%
+shortplural={OAuths},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{pkce}%
+{%
+name={\acronymfont {\glsentryshort {pkce}}},%
+sort={PKCE},%
+type={acronym},%
+first={PKCE},%
+firstplural={PKCEs},%
+text={PKCE},%
+plural={PKCEs},%
+description={Proof Key for Code Exchange},%
+descriptionplural={Proof Key for Code Exchange},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Proof Key for Code Exchange},%
+longplural={Proof Key for Code Exchanges},%
+short={PKCE},%
+shortplural={PKCEs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{sdk}%
+{%
+name={\acronymfont {\glsentryshort {sdk}}},%
+sort={SDK},%
+type={acronym},%
+first={SDK},%
+firstplural={SDKs},%
+text={SDK},%
+plural={SDKs},%
+description={Software Development Kit},%
+descriptionplural={Software Development Kit},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Software Development Kit},%
+longplural={Software Development Kits},%
+short={SDK},%
+shortplural={SDKs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{orm}%
+{%
+name={\acronymfont {\glsentryshort {orm}}},%
+sort={ORM},%
+type={acronym},%
+first={ORM},%
+firstplural={ORMs},%
+text={ORM},%
+plural={ORMs},%
+description={Object-Relational Mapping},%
+descriptionplural={Object-Relational Mapping},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Object-Relational Mapping},%
+longplural={Object-Relational Mappings},%
+short={ORM},%
+shortplural={ORMs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{rest}%
+{%
+name={\acronymfont {\glsentryshort {rest}}},%
+sort={REST},%
+type={acronym},%
+first={REST},%
+firstplural={RESTs},%
+text={REST},%
+plural={RESTs},%
+description={Representational State Transfer},%
+descriptionplural={Representational State Transfer},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Representational State Transfer},%
+longplural={Representational State Transfers},%
+short={REST},%
+shortplural={RESTs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{ast}%
+{%
+name={\acronymfont {\glsentryshort {ast}}},%
+sort={AST},%
+type={acronym},%
+first={AST},%
+firstplural={ASTs},%
+text={AST},%
+plural={ASTs},%
+description={Abstract Syntax Tree},%
+descriptionplural={Abstract Syntax Tree},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Abstract Syntax Tree},%
+longplural={Abstract Syntax Trees},%
+short={AST},%
+shortplural={ASTs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{dast}%
+{%
+name={\acronymfont {\glsentryshort {dast}}},%
+sort={DAST},%
+type={acronym},%
+first={DAST},%
+firstplural={DASTs},%
+text={DAST},%
+plural={DASTs},%
+description={Dynamic Application Security Testing},%
+descriptionplural={Dynamic Application Security Testing},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Dynamic Application Security Testing},%
+longplural={Dynamic Application Security Testings},%
+short={DAST},%
+shortplural={DASTs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{sast}%
+{%
+name={\acronymfont {\glsentryshort {sast}}},%
+sort={SAST},%
+type={acronym},%
+first={SAST},%
+firstplural={SASTs},%
+text={SAST},%
+plural={SASTs},%
+description={Static Application Security Testing},%
+descriptionplural={Static Application Security Testing},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Static Application Security Testing},%
+longplural={Static Application Security Testings},%
+short={SAST},%
+shortplural={SASTs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{owasp}%
+{%
+name={\acronymfont {\glsentryshort {owasp}}},%
+sort={OWASP},%
+type={acronym},%
+first={OWASP},%
+firstplural={OWASPs},%
+text={OWASP},%
+plural={OWASPs},%
+description={Open Worldwide Application Security Project},%
+descriptionplural={Open Worldwide Application Security Project},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Open Worldwide Application Security Project},%
+longplural={Open Worldwide Application Security Projects},%
+short={OWASP},%
+shortplural={OWASPs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{atlas}%
+{%
+name={\acronymfont {\glsentryshort {atlas}}},%
+sort={ATLAS},%
+type={acronym},%
+first={ATLAS},%
+firstplural={ATLASs},%
+text={ATLAS},%
+plural={ATLASs},%
+description={Adversarial Threat Landscape for Artificial-Intelligence Systems},%
+descriptionplural={Adversarial Threat Landscape for Artificial-Intelligence Systems},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Adversarial Threat Landscape for Artificial-Intelligence Systems},%
+longplural={Adversarial Threat Landscape for Artificial-Intelligence Systemss},%
+short={ATLAS},%
+shortplural={ATLASs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{sql}%
+{%
+name={\acronymfont {\glsentryshort {sql}}},%
+sort={SQL},%
+type={acronym},%
+first={SQL},%
+firstplural={SQLs},%
+text={SQL},%
+plural={SQLs},%
+description={Structured Query Language},%
+descriptionplural={Structured Query Language},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Structured Query Language},%
+longplural={Structured Query Languages},%
+short={SQL},%
+shortplural={SQLs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{json}%
+{%
+name={\acronymfont {\glsentryshort {json}}},%
+sort={JSON},%
+type={acronym},%
+first={JSON},%
+firstplural={JSONs},%
+text={JSON},%
+plural={JSONs},%
+description={JavaScript Object Notation},%
+descriptionplural={JavaScript Object Notation},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={JavaScript Object Notation},%
+longplural={JavaScript Object Notations},%
+short={JSON},%
+shortplural={JSONs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{yaml}%
+{%
+name={\acronymfont {\glsentryshort {yaml}}},%
+sort={YAML},%
+type={acronym},%
+first={YAML},%
+firstplural={YAMLs},%
+text={YAML},%
+plural={YAMLs},%
+description={YAML Ain't Markup Language},%
+descriptionplural={YAML Ain't Markup Language},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={YAML Ain't Markup Language},%
+longplural={YAML Ain't Markup Languages},%
+short={YAML},%
+shortplural={YAMLs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{url}%
+{%
+name={\acronymfont {\glsentryshort {url}}},%
+sort={URL},%
+type={acronym},%
+first={URL},%
+firstplural={URLs},%
+text={URL},%
+plural={URLs},%
+description={Uniform Resource Locator},%
+descriptionplural={Uniform Resource Locator},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Uniform Resource Locator},%
+longplural={Uniform Resource Locators},%
+short={URL},%
+shortplural={URLs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{https}%
+{%
+name={\acronymfont {\glsentryshort {https}}},%
+sort={HTTPS},%
+type={acronym},%
+first={HTTPS},%
+firstplural={HTTPSs},%
+text={HTTPS},%
+plural={HTTPSs},%
+description={HyperText Transfer Protocol Secure},%
+descriptionplural={HyperText Transfer Protocol Secure},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={HyperText Transfer Protocol Secure},%
+longplural={HyperText Transfer Protocol Secures},%
+short={HTTPS},%
+shortplural={HTTPSs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{jsonrpc}%
+{%
+name={\acronymfont {\glsentryshort {jsonrpc}}},%
+sort={JSON-RPC},%
+type={acronym},%
+first={JSON-RPC},%
+firstplural={JSON-RPCs},%
+text={JSON-RPC},%
+plural={JSON-RPCs},%
+description={JSON Remote Procedure Call},%
+descriptionplural={JSON Remote Procedure Call},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={JSON Remote Procedure Call},%
+longplural={JSON Remote Procedure Calls},%
+short={JSON-RPC},%
+shortplural={JSON-RPCs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{cvss}%
+{%
+name={\acronymfont {\glsentryshort {cvss}}},%
+sort={CVSS},%
+type={acronym},%
+first={CVSS},%
+firstplural={CVSSs},%
+text={CVSS},%
+plural={CVSSs},%
+description={Common Vulnerability Scoring System},%
+descriptionplural={Common Vulnerability Scoring System},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Common Vulnerability Scoring System},%
+longplural={Common Vulnerability Scoring Systems},%
+short={CVSS},%
+shortplural={CVSSs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{cia}%
+{%
+name={\acronymfont {\glsentryshort {cia}}},%
+sort={CIA},%
+type={acronym},%
+first={CIA},%
+firstplural={CIAs},%
+text={CIA},%
+plural={CIAs},%
+description={Confidentiality, Integrity, Availability},%
+descriptionplural={Confidentiality, Integrity, Availability},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Confidentiality, Integrity, Availability},%
+longplural={Confidentiality, Integrity, Availabilitys},%
+short={CIA},%
+shortplural={CIAs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{prompt_injection}%
+{%
+name={Prompt Injection},%
+sort={Prompt Injection},%
+type={main},%
+first={Prompt Injection},%
+firstplural={Prompt Injections},%
+text={Prompt Injection},%
+plural={Prompt Injections},%
+description={Attack technique in which malicious instructions are embedded within input prompts to manipulate the behavior of a language model and override system-level constraints},%
+descriptionplural={Attack technique in which malicious instructions are embedded within input prompts to manipulate the behavior of a language model and override system-level constraints},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{static_analysis}%
+{%
+name={Static Analysis},%
+sort={Static Analysis},%
+type={main},%
+first={Static Analysis},%
+firstplural={Static Analysiss},%
+text={Static Analysis},%
+plural={Static Analysiss},%
+description={Security testing technique that examines source code without executing it in order to identify structural vulnerabilities and insecure patterns},%
+descriptionplural={Security testing technique that examines source code without executing it in order to identify structural vulnerabilities and insecure patterns},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{dynamic_testing}%
+{%
+name={Dynamic Testing},%
+sort={Dynamic Testing},%
+type={main},%
+first={Dynamic Testing},%
+firstplural={Dynamic Testings},%
+text={Dynamic Testing},%
+plural={Dynamic Testings},%
+description={Security testing approach that evaluates a system during runtime to identify vulnerabilities under real execution conditions},%
+descriptionplural={Security testing approach that evaluates a system during runtime to identify vulnerabilities under real execution conditions},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{threat_modeling}%
+{%
+name={Threat Modeling},%
+sort={Threat Modeling},%
+type={main},%
+first={Threat Modeling},%
+firstplural={Threat Modelings},%
+text={Threat Modeling},%
+plural={Threat Modelings},%
+description={Structured methodology for identifying, analyzing, and categorizing potential security threats across system components and trust boundaries},%
+descriptionplural={Structured methodology for identifying, analyzing, and categorizing potential security threats across system components and trust boundaries},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{defense_in_depth}%
+{%
+name={Defense-in-Depth},%
+sort={Defense-in-Depth},%
+type={main},%
+first={Defense-in-Depth},%
+firstplural={Defense-in-Depths},%
+text={Defense-in-Depth},%
+plural={Defense-in-Depths},%
+description={Security strategy based on layering multiple defensive mechanisms to reduce the risk of system compromise},%
+descriptionplural={Security strategy based on layering multiple defensive mechanisms to reduce the risk of system compromise},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{zero_trust}%
+{%
+name={Zero Trust},%
+sort={Zero Trust},%
+type={main},%
+first={Zero Trust},%
+firstplural={Zero Trusts},%
+text={Zero Trust},%
+plural={Zero Trusts},%
+description={Security model based on the principle of never trusting and always verifying, requiring strict identity validation and access control regardless of network location},%
+descriptionplural={Security model based on the principle of never trusting and always verifying, requiring strict identity validation and access control regardless of network location},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{intrusion_detection}%
+{%
+name={Intrusion Detection},%
+sort={Intrusion Detection},%
+type={main},%
+first={Intrusion Detection},%
+firstplural={Intrusion Detections},%
+text={Intrusion Detection},%
+plural={Intrusion Detections},%
+description={Process of monitoring systems and networks to identify malicious activities or policy violations},%
+descriptionplural={Process of monitoring systems and networks to identify malicious activities or policy violations},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{human_in_the_loop}%
+{%
+name={Human-in-the-Loop},%
+sort={Human-in-the-Loop},%
+type={main},%
+first={Human-in-the-Loop},%
+firstplural={Human-in-the-Loops},%
+text={Human-in-the-Loop},%
+plural={Human-in-the-Loops},%
+description={Control pattern that requires an explicit human approval before an automated process proceeds to an action with real effects, used here as the gate between read-only discovery and live attack traffic},%
+descriptionplural={Control pattern that requires an explicit human approval before an automated process proceeds to an action with real effects, used here as the gate between read-only discovery and live attack traffic},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{payload}%
+{%
+name={Payload},%
+sort={Payload},%
+type={main},%
+first={Payload},%
+firstplural={Payloads},%
+text={Payload},%
+plural={Payloads},%
+description={Crafted input embedded in a tool call with the intent of reaching a vulnerable code path and triggering or revealing a security weakness},%
+descriptionplural={Crafted input embedded in a tool call with the intent of reaching a vulnerable code path and triggering or revealing a security weakness},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{sink}%
+{%
+name={Sink},%
+sort={Sink},%
+type={main},%
+first={Sink},%
+firstplural={Sinks},%
+text={Sink},%
+plural={Sinks},%
+description={Point in a program where externally controlled input reaches a sensitive operation, such as a shell command, database query, or file-system access},%
+descriptionplural={Point in a program where externally controlled input reaches a sensitive operation, such as a shell command, database query, or file-system access},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{canary_string}%
+{%
+name={Canary String},%
+sort={Canary String},%
+type={main},%
+first={Canary String},%
+firstplural={Canary Strings},%
+text={Canary String},%
+plural={Canary Strings},%
+description={Unique known marker planted in a request so that its reappearance in a response deterministically proves data leakage or injection},%
+descriptionplural={Unique known marker planted in a request so that its reappearance in a response deterministically proves data leakage or injection},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{fuzzing}%
+{%
+name={Fuzzing},%
+sort={Fuzzing},%
+type={main},%
+first={Fuzzing},%
+firstplural={Fuzzings},%
+text={Fuzzing},%
+plural={Fuzzings},%
+description={Testing technique that submits malformed, unexpected, or boundary inputs to a system in order to surface faults; applied here as a baseline floor against every exposed tool},%
+descriptionplural={Testing technique that submits malformed, unexpected, or boundary inputs to a system in order to surface faults; applied here as a baseline floor against every exposed tool},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{command_injection}%
+{%
+name={Command Injection},%
+sort={Command Injection},%
+type={main},%
+first={Command Injection},%
+firstplural={Command Injections},%
+text={Command Injection},%
+plural={Command Injections},%
+description={Attack in which attacker-controlled input is passed to a shell or subprocess and executed as part of a system command},%
+descriptionplural={Attack in which attacker-controlled input is passed to a shell or subprocess and executed as part of a system command},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{path_traversal}%
+{%
+name={Path Traversal},%
+sort={Path Traversal},%
+type={main},%
+first={Path Traversal},%
+firstplural={Path Traversals},%
+text={Path Traversal},%
+plural={Path Traversals},%
+description={Attack that manipulates file-path parameters to read, write, or delete files outside the directory a tool is intended to access},%
+descriptionplural={Attack that manipulates file-path parameters to read, write, or delete files outside the directory a tool is intended to access},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{deserialization_attack}%
+{%
+name={Insecure Deserialization},%
+sort={Insecure Deserialization},%
+type={main},%
+first={Insecure Deserialization},%
+firstplural={Insecure Deserializations},%
+text={Insecure Deserialization},%
+plural={Insecure Deserializations},%
+description={Attack that abuses the parsing of serialized data (JSON, YAML, or pickled objects) to corrupt application state or execute arbitrary code},%
+descriptionplural={Attack that abuses the parsing of serialized data (JSON, YAML, or pickled objects) to corrupt application state or execute arbitrary code},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{jailbreak}%
+{%
+name={Jailbreak},%
+sort={Jailbreak},%
+type={main},%
+first={Jailbreak},%
+firstplural={Jailbreaks},%
+text={Jailbreak},%
+plural={Jailbreaks},%
+description={Technique that coerces a language model into ignoring its system-level constraints or safety policies, often combined with prompt injection},%
+descriptionplural={Technique that coerces a language model into ignoring its system-level constraints or safety policies, often combined with prompt injection},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{filter_evasion}%
+{%
+name={Filter Evasion},%
+sort={Filter Evasion},%
+type={main},%
+first={Filter Evasion},%
+firstplural={Filter Evasions},%
+text={Filter Evasion},%
+plural={Filter Evasions},%
+description={Techniques that transform an attack payload so it no longer matches a blocklist or input filter while still triggering the same behavior once interpreted},%
+descriptionplural={Techniques that transform an attack payload so it no longer matches a blocklist or input filter while still triggering the same behavior once interpreted},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{homoglyph}%
+{%
+name={Homoglyph},%
+sort={Homoglyph},%
+type={main},%
+first={Homoglyph},%
+firstplural={Homoglyphs},%
+text={Homoglyph},%
+plural={Homoglyphs},%
+description={Character that is visually identical or near-identical to another, used to replace letters in a payload so a literal-string filter fails to match it},%
+descriptionplural={Character that is visually identical or near-identical to another, used to replace letters in a payload so a literal-string filter fails to match it},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{dynamic_client_registration}%
+{%
+name={Dynamic Client Registration},%
+sort={Dynamic Client Registration},%
+type={main},%
+first={Dynamic Client Registration},%
+firstplural={Dynamic Client Registrations},%
+text={Dynamic Client Registration},%
+plural={Dynamic Client Registrations},%
+description={OAuth mechanism by which a client registers with an authorization server at runtime to obtain a client identifier, without prior manual configuration},%
+descriptionplural={OAuth mechanism by which a client registers with an authorization server at runtime to obtain a client identifier, without prior manual configuration},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
