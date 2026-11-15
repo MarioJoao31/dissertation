@@ -18,8 +18,8 @@ Figure~\ref{fig:stack} summarizes the technologies used, grouped by layer. The b
 
 \begin{sidewaysfigure}
     \centering
-    \includegraphics[width=\linewidth,height=13.5cm,keepaspectratio]{images/technology-stack-light.pdf}
-    \caption[Technology stack]{Technology stack of the tool: the main path from the operator's browser to the target server, the two model services above the backend, and static analysis and persistence below it. Components inside the dashed region run under Docker Compose.\llmgen}
+    \includegraphics[width=\linewidth,height=13.5cm,keepaspectratio]{images/tech-stack.pdf}
+    \caption[Technology stack]{Technology stack of the tool, grouped by layer. The two model services are highlighted.\llmgen}
     \label{fig:stack}
 \end{sidewaysfigure}
 
@@ -34,6 +34,7 @@ The three pieces, frontend, backend, and database, run as separate Docker Compos
     \label{fig:deploy}
 \end{sidewaysfigure}
 
+\clearpage
 \section{The Dynamic Scan Pipeline}
 \label{sec:pipeline}
 
@@ -65,9 +66,9 @@ Between understanding and attacking sits a \glsdisp{human_in_the_loop}{human-in-
 
 The payload library holds a fixed set of attack \glspl{payload} per category, and an adapter layer makes disclosed and synthetic payloads from the project's datasets available through the same interface. Fired as-is, one payload per category tests whether a vulnerable \gls{sink} responds, but it does not test whether a server's \emph{input filtering} can be walked around. A blocklist that rejects the literal string of a known injection may wave through an equivalent variant that an \gls{llm} still reads and obeys.
 
-The mutation layer closes that gap. It models an \emph{operation} as a pure string-to-string transform, among them \texttt{base64}, \texttt{url\_encode}, \texttt{unicode\_escape}, \texttt{hex\_escape}, \texttt{homoglyph}, \texttt{zero\_width}, \texttt{whitespace\_pad}, and \texttt{rot13}, and a \emph{recipe} as an ordered chain of operations where each one's output feeds the next. Because the whole layer is pure transforms with no target, network, or model call, it is self-contained and trivially unit-tested. A mutated template keeps the original payload's success indicators, which is the point: a rule-based hit on an obfuscated variant means both that the obfuscation got past input filtering and that the underlying behavior still fired.
+The mutation layer closes that gap through \gls{filter_evasion}. It models an \emph{operation} as a pure string-to-string transform, among them \texttt{base64}, \texttt{url\_encode}, \texttt{unicode\_escape}, \texttt{hex\_escape}, \texttt{homoglyph}, \texttt{zero\_width}, \texttt{whitespace\_pad}, and \texttt{rot13}, and a \emph{recipe} as an ordered chain of operations where each one's output feeds the next. Because the whole layer is pure transforms with no target, network, or model call, it is self-contained and trivially unit-tested. A mutated template keeps the original payload's success indicators, which is the point: a rule-based hit on an obfuscated variant means both that the obfuscation got past input filtering and that the underlying behavior still fired.
 
-Two guards keep this honest. Latency- and count-based probes carry no textual success indicators, so they are skipped entirely; obfuscating a time-delay payload would break the very trigger its verdict depends on. And a recipe that does not change a given payload, such as a Unicode escape applied to pure ASCII, is not emitted, so the scan never fires a variant identical to its base. Mutations are applied by default only to the text-interpreted categories, where an encoded payload is still meaningful, and the feature is off unless explicitly enabled.
+Two guards keep this honest. Latency- and count-based probes carry no textual success indicators, so they are skipped entirely; obfuscating a time-delay payload would break the very trigger its verdict depends on. And a recipe that does not change a given payload, such as a Unicode escape applied to pure \gls{ascii}, is not emitted, so the scan never fires a variant identical to its base. Mutations are applied by default only to the text-interpreted categories, where an encoded payload is still meaningful, and the feature is off unless explicitly enabled.
 
 \subsection{Attack Synthesis and Execution}
 \label{sec:executor}
@@ -144,15 +145,15 @@ Each category in the taxonomy is assigned one base vector, stored next to its re
 \textbf{Category} & \textbf{Base vector (after \texttt{CVSS:3.1/})} & \textbf{Score} & \textbf{Band} & \textbf{C/I/A} \\
 \hline
 Command Injection & \texttt{AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H} & 10.0 & Critical & H/H/H \\
-SQL Injection & \texttt{AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:L} & 9.4 & Critical & H/H/L \\
-SSRF & \texttt{AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:L/A:N} & 9.3 & Critical & H/L/N \\
+\acrshort{sql} Injection & \texttt{AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:L} & 9.4 & Critical & H/H/L \\
+\acrshort{ssrf} & \texttt{AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:L/A:N} & 9.3 & Critical & H/L/N \\
 Jailbreak / Prompt Injection & \texttt{AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:H/A:N} & 9.3 & Critical & L/H/N \\
 Memory \& Persistence Poisoning & \texttt{AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:H/A:N} & 9.3 & Critical & L/H/N \\
 Path Traversal & \texttt{AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:L/A:N} & 8.2 & High & H/L/N \\
 Auth \& Access Control & \texttt{AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N} & 8.1 & High & H/H/N \\
 Deserialization & \texttt{AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H} & 8.1 & High & H/H/H \\
 Information Extraction & \texttt{AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N} & 7.5 & High & H/N/N \\
-DoS / Resource Exhaustion & \texttt{AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H} & 7.5 & High & N/N/H \\
+\acrshort{dos} / Resource Exhaustion & \texttt{AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H} & 7.5 & High & N/N/H \\
 Resource Extraction & \texttt{AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N} & 6.5 & Medium & H/N/N \\
 Generic Schema Fuzzing & \texttt{AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L} & 6.5 & Medium & N/L/L \\
 \hline
@@ -197,7 +198,7 @@ Source arrives one of two ways, both refusing anything unsafe. A public reposito
     \label{fig:static-flow}
 \end{sidewaysfigure}
 
-Each file is parsed to an \gls{ast}, and a syntax error is recorded while the run continues, so analysis is partial rather than all-or-nothing. The inventory pass is hand-written tree walking because it needs MCP-specific knowledge: which function is a registered tool, and where its body ends. It records server instantiation, the tool, resource, and prompt registrations with their parameters and line ranges, the declared transport, and authentication hints, and reads the declared MCP dependency version from the project's requirements.
+Each file is parsed to an \gls{ast}, and a syntax error is recorded while the run continues, so analysis is partial rather than all-or-nothing. The inventory pass is hand-written tree walking because it needs \gls{mcp}-specific knowledge: which function is a registered tool, and where its body ends. It records server instantiation, the tool, resource, and prompt registrations with their parameters and line ranges, the declared transport, and authentication hints, and reads the declared \gls{mcp} dependency version from the project's requirements.
 
 Risk detection reuses Bandit rather than hand-rolling sink matching; this engine's contribution is mapping Bandit's test identifiers onto the taxonomy and attributing each hit to the tool that exposes it. A shell-executing call maps to \gls{command_injection}, a string-built query to \acrshort{sql} injection, and a pickle load to \glsdisp{deserialization_attack}{deserialization}, while a hit outside the taxonomy is dropped. A dangerous call inside a registered tool's line range is attributed to that tool, because it is reachable by anything that can invoke the tool; the same call in a helper script is not, and the attribution preserves that distinction. The same analysis is available offline through a command-line entry point, so it can run with neither a server nor the web interface.
 
@@ -235,18 +236,18 @@ What the model deliberately does not store is the connection credentials. The \a
 \subsection{Authenticated Servers: the OAuth Flow}
 \label{sec:oauth}
 
-\gls{mcp} servers exposed over \gls{http} increasingly require \gls{oauth} rather than a static token~\cite{mcp2025spec}. The implementation builds entirely on the official \gls{sdk}'s OAuth client provider, so metadata discovery, \glsdisp{dynamic_client_registration}{dynamic client registration}, and \gls{pkce} are the SDK's responsibility, not reimplemented here. The protocol chain is the standard one~\cite{rfc6749}: the client asks the server which authorization server handles it, asks that server for its endpoints, obtains a client identifier, and completes an authorization-code grant with PKCE~\cite{rfc7636} as mandated for a public client that has no secret to keep confidential.
+\gls{mcp} servers exposed over \gls{http} increasingly require \gls{oauth} rather than a static token~\cite{mcp2025spec}. The implementation builds entirely on the official \gls{sdk}'s \gls{oauth} client provider, so metadata discovery, \glsdisp{dynamic_client_registration}{dynamic client registration}, and \gls{pkce} are the \gls{sdk}'s responsibility, not reimplemented here. The protocol chain is the standard one~\cite{rfc6749}: the client asks the server which authorization server handles it, asks that server for its endpoints, obtains a client identifier, and completes an authorization-code grant with \gls{pkce}~\cite{rfc7636} as mandated for a public client that has no secret to keep confidential.
 
-The flow is matched to a two-phase interface. A start call creates an in-memory connection and begins discovery in the background; its redirect handler opens the system browser to the authorize URL and records the OAuth state so the later callback can be matched to the right pending login. The provider blocks until the callback resolves it with the returned code, the SDK completes the token exchange internally, and discovery and classification then run over the now-authenticated session as the same step. The resulting bearer token is folded into the same process-local credential store every other transport uses, so the attack call needs no OAuth-specific code. Tokens and client information are reused per target \acrshort{url} for the life of the process and, like every other credential, are never written to the database or to disk.
+The flow is matched to a two-phase interface. A start call creates an in-memory connection and begins discovery in the background; its redirect handler opens the system browser to the authorize \gls{url} and records the \gls{oauth} state so the later callback can be matched to the right pending login. The provider blocks until the callback resolves it with the returned code, the \gls{sdk} completes the token exchange internally, and discovery and classification then run over the now-authenticated session as the same step. The resulting bearer token is folded into the same process-local credential store every other transport uses, so the attack call needs no \gls{oauth}-specific code. Tokens and client information are reused per target \acrshort{url} for the life of the process and, like every other credential, are never written to the database or to disk.
 
-Two interoperability issues encountered while building this are worth recording, because they are the kind of detail a practitioner repeating the work would hit. One provider, in the absence of an explicit token-endpoint authentication method at registration, defaulted new clients to a confidential-client method and issued a secret the tool had no business holding, after which the SDK sent the client identifier in two places at once and the authorization server rejected it; the fix was to request the public-client method explicitly at registration time. Another provider has no registration endpoint at all, returning a bare 404, which confirmed that dynamic registration is simply unimplemented there and motivated a manual escape hatch that pre-seeds the client information so the SDK skips registration entirely.
+Two interoperability issues encountered while building this are worth recording, because they are the kind of detail a practitioner repeating the work would hit. One provider, in the absence of an explicit token-endpoint authentication method at registration, defaulted new clients to a confidential-client method and issued a secret the tool had no business holding, after which the \gls{sdk} sent the client identifier in two places at once and the authorization server rejected it; the fix was to request the public-client method explicitly at registration time. Another provider has no registration endpoint at all, returning a bare 404, which confirmed that dynamic registration is simply unimplemented there and motivated a manual escape hatch that pre-seeds the client information so the \gls{sdk} skips registration entirely.
 
 \section{Architectural Design Decisions}
 \label{sec:decisions}
 
 Several decisions are explained where their mechanism is described: the human approval gate (Section~\ref{sec:gate}), the dual evaluation and grounded judge (Section~\ref{sec:evaluator}), sequential execution by default (Section~\ref{sec:executor}), and the refusal to persist credentials (Section~\ref{sec:data}). Three further decisions cut across components and are collected here.
 
-Classification uses a System One model rather than a generative \gls{llm}. The tool was first built with an \gls{llm} classifier, which is kept in the code for comparison. Classification is a narrow decision, repeated for every tool and category and consumed by code rather than read by a person, which is the case a System One model is built for: each category becomes an independent probability that can be thresholded, instead of a list the model writes and the code must parse. In a benchmark over the 22 tools of the evaluation corpus (Chapter~\ref{chap:results}), Jev reached an F1 score of 0.86, against 0.84 and 0.86 for the \gls{llm} classifier (GPT-5.4 mini) in two runs, at roughly one seventh of the cost and less than half of the latency per tool. Attack synthesis and judging stay with a generative \gls{llm}, because they require writing text and explaining a verdict.
+Classification uses a System One model rather than a generative \gls{llm}. The tool was first built with an \gls{llm} classifier, which is kept in the code for comparison. Classification is a narrow decision, repeated for every tool and category and consumed by code rather than read by a person, which is the case a System One model is built for: each category becomes an independent probability that can be thresholded, instead of a list the model writes and the code must parse. In a benchmark over the 22 tools of the evaluation corpus (Chapter~\ref{chap:results}), Jev reached an F1 score of 0.86, against 0.84 and 0.86 for the \gls{llm} classifier (\gls{gpt}-5.4 mini) in two runs, at roughly one seventh of the cost and less than half of the latency per tool. Attack synthesis and judging stay with a generative \gls{llm}, because they require writing text and explaining a verdict.
 
 The classifier has a floor it cannot remove. Because a tool description is untrusted text fed into a model, a crafted description could try to manipulate the classifier into reporting nothing. The measures described in Section~\ref{sec:categorizer}, framing the tool definition as data rather than instructions, appending the generic fuzzing category in code, and falling back to that baseline when classification fails, ensure that no tool silently vanishes from the results. The tool's own triage step is exposed to the same injection risk it is built to detect, and the architecture answers that explicitly rather than assuming the classifier is trustworthy.
 
@@ -259,4 +260,4 @@ The test suite uses Pytest with \texttt{pytest-asyncio} and runs without network
 
 A parity test keeps the frontend's copy of the taxonomy in sync with the Python enumerations, and the remediation catalog is checked so that every category resolves to remediation text and carries a valid \gls{cvss} vector. A deterministic test fixes one known vector, the \acrshort{sql} injection one, to its expected score of 9.4, its Critical band, and its high, high, low impact, so a change in the library or the catalog cannot silently shift the scores reported in Chapter~\ref{chap:results}.
 
-On every push, continuous integration runs the test suite and three security tools against the tool's own code: Bandit, \texttt{pip-audit}, and \texttt{detect-secrets}. All three currently pass clean, verified in CI rather than assumed.
+On every push, continuous integration runs the test suite and three security tools against the tool's own code: Bandit, \texttt{pip-audit}, and \texttt{detect-secrets}. All three currently pass clean, verified in \gls{ci} rather than assumed.

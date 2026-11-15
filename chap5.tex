@@ -28,7 +28,7 @@ This chapter evaluates the tool. It describes the evaluation design and the corp
 % - Environment: sequential baseline (MAX_CONCURRENT_TOOLS=1), which model /
 %   provider, which mutation setting. Record for reproducibility.
 
-The evaluation is built around the nine intentionally-vulnerable MCP servers that ship with the project. Each server is a single file that pairs a genuinely exploitable tool with a safe control tool of the same shape, so a correct scan flags the first and leaves the second untouched. That pairing is the ground truth: the exploitable tools yield the detection rate, and the controls yield the false-positive rate. Table~\ref{tab:targets} lists the corpus.
+The evaluation is built around the nine intentionally-vulnerable \gls{mcp} servers that ship with the project. Each server is a single file that pairs a genuinely exploitable tool with a safe control tool of the same shape, so a correct scan flags the first and leaves the second untouched. That pairing is the ground truth: the exploitable tools yield the detection rate, and the controls yield the false-positive rate. Table~\ref{tab:targets} lists the corpus.
 
 \begin{table}[htbp]
 \centering

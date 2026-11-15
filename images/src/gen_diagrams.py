@@ -1,6 +1,6 @@
-"""Generate deploy-containers.svg in the same visual style as the other diagrams.
+"""Generate tech-stack.svg and deploy-containers.svg in the same visual style as the other diagrams.
 
-Run: python3 gen_diagrams.py && ./export.sh deploy-containers
+Run: python3 gen_diagrams.py && ./export.sh tech-stack deploy-containers
 """
 from html import escape
 
@@ -120,7 +120,7 @@ def deploy():
 
 
 if __name__ == "__main__":
-    for name, fn in (("deploy-containers", deploy),):
+    for name, fn in (("tech-stack", tech_stack), ("deploy-containers", deploy)):
         with open(f"{name}.svg", "w") as f:
             f.write(fn())
         print("wrote", name)

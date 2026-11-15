@@ -57,7 +57,7 @@ Speed and cost & Slower, priced per generated token & Faster and cheaper per dec
 Suited to & Writing, synthesis, open-ended judgement & Narrow, repeated decisions consumed by code \\
 \hline
 \end{tabular}
-\caption{Generative LLMs versus System One models.}
+\caption{Generative \glspl{llm} versus System One models.}
 \label{tab:llm-vs-s1}
 \end{table}
 
@@ -66,7 +66,7 @@ The tool uses both, each where it fits. Deciding whether an attack category appl
 \subsection{Commercial and Open-Weight Models}
 \label{sec:llm-models}
 
-Available models fall into two broad groups. Commercial models, such as OpenAI's GPT family, Anthropic's Claude, and Google's Gemini, are reached through a paid \gls{api}; their weights are not published and every prompt is sent to the provider. Open-weight models, such as Meta's Llama \citep{touvron2023llama}, Mistral, Qwen, and DeepSeek, publish their weights so they can be downloaded and run on local hardware, for example through Ollama.
+Available models fall into two broad groups. Commercial models, such as OpenAI's \gls{gpt} family, Anthropic's Claude, and Google's Gemini, are reached through a paid \gls{api}; their weights are not published and every prompt is sent to the provider. Open-weight models, such as Meta's Llama \citep{touvron2023llama}, Mistral, Qwen, and DeepSeek, publish their weights so they can be downloaded and run on local hardware, for example through Ollama.
 
 Table~\ref{tab:open-vs-commercial} summarizes the trade-off as it applies to a security tool. Commercial models generally lead in reasoning quality and in reliable structured output, both of which attack synthesis and the judge depend on. Open-weight models give up some of that quality in exchange for control: the target server's tool descriptions, its responses, and any data those responses leak never leave the operator's machine. Since neither option is right for every engagement, the tool supports both for attack synthesis and judging, behind a single provider abstraction (Section~\ref{sec:llm-provider}), with OpenAI and Anthropic for quality and Ollama for local runs. Tool classification is the exception: it always calls Jev's hosted \gls{api}, so even with Ollama configured, tool definitions leave the operator's machine.
 
@@ -126,12 +126,12 @@ The risks described above are not hypothetical. Table~\ref{tab:incidents} lists 
 2023 & ChatGPT & A bug in an open-source caching library showed some users the chat titles and partial payment details of other users \citep{openai2023outage}. & Cross-tenant data exposure \\
 2023 & Samsung & Employees pasted confidential source code into a public chatbot, after which the company restricted its use \citep{gurman2023samsung}. & Data leakage to a third-party provider \\
 2024 & Air Canada & A support chatbot invented a refund policy, and a tribunal held the airline liable for the answer \citep{moffatt2024aircanada}. & Trusting model output \\
-2025 & MCP clients & Hidden instructions in an \gls{mcp} tool description led the client's agent to read and exfiltrate local files \citep{invariant2025toolpoisoning}. & Tool poisoning (prompt injection) \\
-2025 & GitHub MCP server & A malicious issue in a public repository hijacked an agent into leaking data from the user's private repositories \citep{invariant2025github}. & Indirect prompt injection, over-broad access \\
-2025 & \texttt{mcp-remote} & A malicious server could run operating-system commands on the client by returning a crafted authorization \acrshort{url} (CVE-2025-6514) \citep{jfrog2025mcpremote}. & Command injection \\
+2025 & \acrshort{mcp} clients & Hidden instructions in an \gls{mcp} tool description led the client's agent to read and exfiltrate local files \citep{invariant2025toolpoisoning}. & Tool poisoning (prompt injection) \\
+2025 & GitHub \acrshort{mcp} server & A malicious issue in a public repository hijacked an agent into leaking data from the user's private repositories \citep{invariant2025github}. & Indirect prompt injection, over-broad access \\
+2025 & \texttt{mcp-remote} & A malicious server could run operating-system commands on the client by returning a crafted authorization \acrshort{url} (\acrshort{cve}-2025-6514) \citep{jfrog2025mcpremote}. & Command injection \\
 \hline
 \end{tabular}
-\caption{Publicly documented security incidents involving LLM applications and MCP.}
+\caption{Publicly documented security incidents involving \gls{llm} applications and \gls{mcp}.}
 \label{tab:incidents}
 \end{table}
 
@@ -168,7 +168,7 @@ In \gls{mcp}-enabled environments, the attack surface expands along three princi
     \item \textbf{External tool invocation} – \gls{llm}s are capable of triggering external tools based on natural language instructions. This introduces risks related to improper input validation, command injection, and unintended execution of sensitive operations. If tool interfaces are not strictly constrained, malicious or manipulated prompts may lead to unauthorized actions being performed at the system level.
  
 
-    \item \textbf{Permission and authorization management} – MCP architectures rely on permission boundaries to control which tools and resources an agent can access. Weak or misconfigured access control mechanisms may allow privilege escalation, enabling agents to perform actions beyond their intended scope. Ensuring strict enforcement of least-privilege principles is therefore critical.
+    \item \textbf{Permission and authorization management} – \gls{mcp} architectures rely on permission boundaries to control which tools and resources an agent can access. Weak or misconfigured access control mechanisms may allow privilege escalation, enabling agents to perform actions beyond their intended scope. Ensuring strict enforcement of least-privilege principles is therefore critical.
 
     \item \textbf{Multi-agent communication flows} – In systems involving \gls{a2a} communication, agents exchange information and delegate tasks. This introduces risks such as trust boundary violations, propagation of malicious instructions across agents, and cascading compromise scenarios where a single compromised agent affects the entire system.
 \end{enumerate}
@@ -181,19 +181,19 @@ Unlike traditional web applications, \gls{mcp} systems combine probabilistic rea
 The \gls{owasp} GenAI Security Project maintains community-reviewed lists of the most critical risks for \gls{ai}-based systems. Three of them describe the attack surface above, each at a different level:
 
 \begin{itemize}
-  \item \textbf{Top 10 for LLM Applications (2025)} covers any application built on an \gls{llm}, from prompt injection (LLM01) and sensitive information disclosure (LLM02) to excessive agency (LLM06) and unbounded consumption (LLM10) \citep{owasp2025llmtop10}.
+  \item \textbf{Top 10 for \gls{llm} Applications (2025)} covers any application built on an \gls{llm}, from prompt injection (LLM01) and sensitive information disclosure (LLM02) to excessive agency (LLM06) and unbounded consumption (LLM10) \citep{owasp2025llmtop10}.
   \item \textbf{Top 10 for Agentic Applications (2026)}, published in December 2025, covers the risks that appear once the model plans and acts on its own with tools, memory, and other agents, such as agent goal hijack (ASI01), tool misuse (ASI02), and memory and context poisoning (ASI06) \citep{owasp2026agentic}.
   \item \textbf{MCP Top 10 (2025)}, currently in beta, covers risks specific to \gls{mcp} servers and clients \citep{owasp2025mcptop10}.
 \end{itemize}
 
-The three lists overlap on purpose. Prompt injection appears in all of them under different names (LLM01, ASI01, MCP06), and so does the supply chain (LLM03, ASI04, MCP04). Read together, they move from the model, to the agent, to the protocol that connects the agent to its tools. The MCP Top 10 is the closest to this work, so Table~\ref{tab:owasp-mcp} uses it as the reference and shows, for each item, the related items in the other two lists and whether the tool tests it.
+The three lists overlap on purpose. Prompt injection appears in all of them under different names (LLM01, ASI01, MCP06), and so does the supply chain (LLM03, ASI04, MCP04). Read together, they move from the model, to the agent, to the protocol that connects the agent to its tools. The \gls{mcp} Top 10 is the closest to this work, so Table~\ref{tab:owasp-mcp} uses it as the reference and shows, for each item, the related items in the other two lists and whether the tool tests it.
 
 \begin{table}[htbp]
 \centering
 \small
 \begin{tabular}{>{\raggedright\arraybackslash}p{5.0cm} >{\raggedright\arraybackslash}p{2.3cm} >{\raggedright\arraybackslash}p{6.2cm}}
 \hline
-\textbf{OWASP MCP Top 10} & \textbf{LLM / Agentic} & \textbf{Coverage in this tool} \\
+\textbf{OWASP \acrshort{mcp} Top 10} & \textbf{LLM / Agentic} & \textbf{Coverage in this tool} \\
 \hline
 MCP01 Token Mismanagement \& Secret Exposure & LLM02, ASI03 & Information Extraction \\
 MCP02 Privilege Escalation via Scope Creep & LLM06, ASI03 & Auth \& Access Control (partial) \\
@@ -203,15 +203,15 @@ MCP05 Command Injection \& Execution & LLM05, ASI05 & Command Injection, \acrsho
 MCP06 Prompt Injection via Contextual Payloads & LLM01, ASI01 & Jailbreak / Prompt Injection \\
 MCP07 Insufficient Authentication \& Authorization & ASI03 & Auth \& Access Control \\
 MCP08 Lack of Audit and Telemetry & -- & Not covered \\
-MCP09 Shadow MCP Servers & -- & Not covered (organizational) \\
+MCP09 Shadow \acrshort{mcp} Servers & -- & Not covered (organizational) \\
 MCP10 Context Injection \& Over-Sharing & LLM02, ASI06 & Resource Extraction, Memory \& Persistence Poisoning \\
 \hline
 \end{tabular}
-\caption{The OWASP MCP Top 10, related items in the LLM and Agentic lists, and the taxonomy categories of this tool that test each one.}
+\caption{The \gls{owasp} \gls{mcp} Top 10, related items in the \gls{llm} and Agentic lists, and the taxonomy categories of this tool that test each one.}
 \label{tab:owasp-mcp}
 \end{table}
 
-Six of the ten items map onto categories of the tool's taxonomy (Section~\ref{sec:taxonomy}). The remaining four are left out for different reasons. Tool poisoning concerns a malicious server attacking its client, whereas this tool treats the server as the target. Supply chain, audit logging, and shadow servers are properties of how a server is built, deployed, and governed, not behaviors that can be observed by calling its tools. Two of the tool's categories also go beyond the MCP list: \acrshort{ssrf}, a classic web risk with no MCP item of its own, and \acrshort{dos}, which corresponds to LLM10 Unbounded Consumption.
+Six of the ten items map onto categories of the tool's taxonomy (Section~\ref{sec:taxonomy}). The remaining four are left out for different reasons. Tool poisoning concerns a malicious server attacking its client, whereas this tool treats the server as the target. Supply chain, audit logging, and shadow servers are properties of how a server is built, deployed, and governed, not behaviors that can be observed by calling its tools. Two of the tool's categories also go beyond the \gls{mcp} list: \acrshort{ssrf}, a classic web risk with no \gls{mcp} item of its own, and \acrshort{dos}, which corresponds to LLM10 Unbounded Consumption.
 
 \section{Adversarial Machine Learning and Prompt Injection}
 \label{sec:prompt-injection}
@@ -237,7 +237,7 @@ Theoretical work on adversarial robustness demonstrates that language models can
 
 \section{Threat Modeling in Protocol-Driven AI Systems}
 
-\gls{threat_modeling} is a structured methodology for identifying and categorizing vulnerabilities across system components and trust boundaries. In distributed and protocol-driven systems, methodologies such as STRIDE (Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege) provide systematic coverage of security risks \citep{mitre2023atlas}.
+\gls{threat_modeling} is a structured methodology for identifying and categorizing vulnerabilities across system components and trust boundaries. In distributed and protocol-driven systems, methodologies such as \gls{stride} provide systematic coverage of security risks \citep{mitre2023atlas}.
 
 This implies that threat modeling must consider not only classical vulnerabilities but also how contextual inputs can influence system behavior. For example, a seemingly benign prompt may lead to unintended tool execution if the model misinterprets intent or if safeguards are insufficient.
 
@@ -260,7 +260,7 @@ Modern cybersecurity practice relies on automated vulnerability detection mechan
 
 \gls{static_analysis} enables detection of structural weaknesses in source code, such as improper permission handling or insecure token validation. \gls{dynamic_testing} evaluates runtime behavior under controlled adversarial conditions.
 
-In addition to traditional techniques, MCP security requires \textbf{semantic adversarial testing}, where malicious or crafted prompts are systematically generated to evaluate how \gls{llm}-driven systems respond to adversarial inputs. This form of testing targets vulnerabilities that arise from the interpretation of natural language, including \gls{prompt_injection}, context manipulation, and unintended action triggering \citep{greshake2023prompt, liu2024universal}.
+In addition to traditional techniques, \gls{mcp} security requires \textbf{semantic adversarial testing}, where malicious or crafted prompts are systematically generated to evaluate how \gls{llm}-driven systems respond to adversarial inputs. This form of testing targets vulnerabilities that arise from the interpretation of natural language, including \gls{prompt_injection}, context manipulation, and unintended action triggering \citep{greshake2023prompt, liu2024universal}.
 
 
 Continuous validation aligns with \gls{defense_in_depth} theory \citep{nist2022ssdf}, which advocates layered security mechanisms rather than reliance on a single control. Integrating automated security scanning into development pipelines allows \gls{mcp} implementations to be re-evaluated not only at design time but also later in their lifecycle.
