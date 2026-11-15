@@ -922,6 +922,34 @@ parent={},%
 %
 }%
 
+\glsdefs@newdocentry{rag}%
+{%
+name={\acronymfont {\glsentryshort {rag}}},%
+sort={RAG},%
+type={acronym},%
+first={RAG},%
+firstplural={RAGs},%
+text={RAG},%
+plural={RAGs},%
+description={Retrieval-Augmented Generation},%
+descriptionplural={Retrieval-Augmented Generation},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Retrieval-Augmented Generation},%
+longplural={Retrieval-Augmented Generations},%
+short={RAG},%
+shortplural={RAGs},%
+counter={page},%
+parent={},%
+%
+}%
+
 \glsdefs@newdocentry{prompt_injection}%
 {%
 name={Prompt Injection},%
@@ -1437,6 +1465,34 @@ text={Dynamic Client Registration},%
 plural={Dynamic Client Registrations},%
 description={OAuth mechanism by which a client registers with an authorization server at runtime to obtain a client identifier, without prior manual configuration},%
 descriptionplural={OAuth mechanism by which a client registers with an authorization server at runtime to obtain a client identifier, without prior manual configuration},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{system_one}%
+{%
+name={System One model},%
+sort={System One model},%
+type={main},%
+first={System One model},%
+firstplural={System One models},%
+text={System One model},%
+plural={System One models},%
+description={Language model that, instead of generating text, returns a typed answer (yes/no, a choice from a defined set, or a score) together with a calibrated probability; used here to classify MCP tools into attack categories},%
+descriptionplural={Language model that, instead of generating text, returns a typed answer (yes/no, a choice from a defined set, or a score) together with a calibrated probability; used here to classify MCP tools into attack categories},%
 symbol={\relax },%
 symbolplural={\relax },%
 user1={},%
