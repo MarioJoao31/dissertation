@@ -5,6 +5,7 @@
 \usepackage[figuresright]{rotating}
 \definecolor{accent}{HTML}{00C83C}
 \definecolor{accentdark}{HTML}{009A2E}
+\lstdefinestyle{attack}{float=false, basicstyle=\ttfamily\footnotesize, columns=fullflexible, keepspaces=true, breaklines=true, frame=single, frameround=ffff, rulecolor=\color{accentdark}, backgroundcolor=\color{accent!6}, xleftmargin=0.5em, xrightmargin=0.5em, aboveskip=0.6em, belowskip=0.6em}
 \newcommand{\llmgen}{ (Diagram generated with the assistance of an LLM.)}
 
 % Diagrams exported from docs/diagrams are included as PDF.
@@ -39,7 +40,7 @@ A crescente adoção do Model Context Protocol (MCP) tem permitido que sistemas 
 
 Esta dissertação apresenta o desenvolvimento de uma ferramenta de segurança para implementações MCP, com foco na identificação, mitigação e prevenção de vulnerabilidades específicas deste ecossistema. Seguindo uma abordagem de Design Science Research, foi concebido e validado um artefacto técnico aplicável a contextos reais.
 
-O principal contributo consiste numa ferramenta que combina duas análises complementares sobre a mesma taxonomia de vulnerabilidades: uma análise dinâmica que se liga a um servidor MCP em execução, classifica as suas ferramentas com recurso a um modelo System One, que devolve decisões tipadas com probabilidades em vez de texto, e executa ataques adversariais controlados, gerados e avaliados por um Large Language Model, e uma análise estática que inspeciona o código-fonte de um servidor sem o executar. O objetivo é estabelecer boas práticas de segurança que reduzam o risco associado à adoção do MCP em ambientes empresariais e infraestruturas críticas.
+O principal contributo consiste numa ferramenta que combina duas análises complementares sobre a mesma taxonomia de vulnerabilidades: uma análise dinâmica que se liga a um servidor MCP em execução, classifica as suas ferramentas com recurso a um modelo System One, que devolve decisões tipadas com probabilidades em vez de texto, e executa ataques adversariais controlados, gerados e avaliados por um Large Language Model, e uma análise estática que inspeciona o código-fonte Python de um servidor sem o executar. O objetivo é estabelecer boas práticas de segurança que reduzam o risco associado à adoção do MCP em ambientes empresariais e infraestruturas críticas.
 
 \vspace{1em}
 \noindent\textbf{Palavras-chave:} Model Context Protocol (MCP); Segurança de Sistemas de IA; \textit{Prompt Injection}; Testes Adversariais; Análise Estática e Dinâmica; \textit{Large Language Models}; Modelos System One; \textit{Design Science Research}
@@ -52,7 +53,7 @@ The increasing adoption of the Model Context Protocol (MCP) has enabled language
 
 This dissertation presents the development of a security tool for MCP implementations, focusing on the identification, mitigation, and prevention of vulnerabilities specific to this ecosystem. Following a Design Science Research approach, a technical artifact was designed and validated for real-world application.
 
-The main contribution is a tool that combines two complementary analyses over a single vulnerability taxonomy: a dynamic analysis that connects to a running MCP server, classifies its exposed tools with a System One model, which returns typed probabilistic decisions instead of text, and executes controlled adversarial attacks synthesized and judged by a Large Language Model, and a static analysis that inspects a server's source code without executing it. The goal is to establish security best practices that reduce the risks associated with MCP adoption in enterprise and critical infrastructure environments.
+The main contribution is a tool that combines two complementary analyses over a single vulnerability taxonomy: a dynamic analysis that connects to a running MCP server, classifies its exposed tools with a System One model, which returns typed probabilistic decisions instead of text, and executes controlled adversarial attacks synthesized and judged by a Large Language Model, and a static analysis that inspects a server's Python source code without executing it. The goal is to establish security best practices that reduce the risks associated with MCP adoption in enterprise and critical infrastructure environments.
 
 
 \vspace{1em}

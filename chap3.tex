@@ -170,7 +170,7 @@ These vectors are a defensible starting point, not fixed truths, and they are ke
 \label{sec:static}
 \label{sec:static-impl}
 
-The static path reads source code and never connects to a server. It exists alongside the dynamic path because the two answer different questions about the same weakness, as Table~\ref{tab:static-vs-dynamic} sets out. The static path answers ``which code would answer this payload,'' with a line of source as evidence, before the dynamic path, or anyone else's pentest tool, answers ``did this payload actually work'' with the server's response as evidence.
+The static path reads source code and never connects to a server. It currently analyses Python servers only: it relies on Python's \texttt{ast} module and on Bandit, both specific to Python, so source files in other languages, such as TypeScript, are skipped. The dynamic path has no such limit, since it only speaks the protocol. It exists alongside the dynamic path because the two answer different questions about the same weakness, as Table~\ref{tab:static-vs-dynamic} sets out. The static path answers ``which code would answer this payload,'' with a line of source as evidence, before the dynamic path, or anyone else's pentest tool, answers ``did this payload actually work'' with the server's response as evidence.
 
 \begin{table}[htbp]
 \centering

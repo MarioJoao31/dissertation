@@ -866,6 +866,90 @@ parent={},%
 %
 }%
 
+\glsdefs@newdocentry{sast}%
+{%
+name={\acronymfont {\glsentryshort {sast}}},%
+sort={SAST},%
+type={acronym},%
+first={SAST},%
+firstplural={SASTs},%
+text={SAST},%
+plural={SASTs},%
+description={Static Application Security Testing},%
+descriptionplural={Static Application Security Testing},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Static Application Security Testing},%
+longplural={Static Application Security Testings},%
+short={SAST},%
+shortplural={SASTs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{dast}%
+{%
+name={\acronymfont {\glsentryshort {dast}}},%
+sort={DAST},%
+type={acronym},%
+first={DAST},%
+firstplural={DASTs},%
+text={DAST},%
+plural={DASTs},%
+description={Dynamic Application Security Testing},%
+descriptionplural={Dynamic Application Security Testing},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Dynamic Application Security Testing},%
+longplural={Dynamic Application Security Testings},%
+short={DAST},%
+shortplural={DASTs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{xss}%
+{%
+name={\acronymfont {\glsentryshort {xss}}},%
+sort={XSS},%
+type={acronym},%
+first={XSS},%
+firstplural={XSSs},%
+text={XSS},%
+plural={XSSs},%
+description={Cross-Site Scripting},%
+descriptionplural={Cross-Site Scripting},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Cross-Site Scripting},%
+longplural={Cross-Site Scriptings},%
+short={XSS},%
+shortplural={XSSs},%
+counter={page},%
+parent={},%
+%
+}%
+
 \glsdefs@newdocentry{prompt_injection}%
 {%
 name={Prompt Injection},%

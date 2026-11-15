@@ -25,11 +25,13 @@ To answer it, this work develops a security tool for \gls{mcp} servers and \gls{
 
 \begin{itemize}
     \item analyzing \gls{mcp} implementations for structural and semantic security flaws;
-    \item performing \gls{static_analysis} on \gls{mcp} server source code;
+    \item performing \gls{static_analysis} on the source code of \gls{mcp} servers written in Python;
     \item conducting dynamic adversarial testing using crafted prompts and malicious inputs;
     \item testing tool permission boundaries and access control under a low-privilege session;
     \item producing remediation recommendations aligned with established cybersecurity principles and emerging \gls{ai} threat patterns, together with a \gls{cvss} v3.1 severity score and \gls{cia} impact for every finding.
 \end{itemize}
+
+The two analyses differ in scope. The dynamic analysis works with any \gls{mcp} server, whatever its implementation language, because it only uses the protocol. The static analysis currently supports servers written in Python only, since it relies on Python's syntax tree and on Bandit, a Python-specific analyser; servers written in other languages, such as TypeScript, are left for future work.
 
 The expected contribution is twofold. First, a working artifact that unifies dynamic testing and static analysis of \gls{mcp} servers under a single vulnerability taxonomy and a single remediation catalog. Second, a set of design decisions and observations, including the handling of untrusted tool descriptions during automated triage, that inform secure development practice for this ecosystem.
 
@@ -74,7 +76,7 @@ The work follows the \gls{dsr} methodology \citep{hevner2004design}, which is su
     \label{fig:dsr_methodology}
 \end{figure}
 
-The research was structured into five stages aligned with the \gls{dsr} cycle. Problem identification and threat analysis examined the \gls{mcp} specification to locate attack-surface expansion, trust boundaries, and protocol-level weaknesses, including \gls{threat_modeling} of client-server interactions, tool invocation, and agent-to-agent flows \citep{qi2025protocol}. The definition of security requirements then translated those weaknesses into functional and non-functional requirements that guide the architecture and establish measurable evaluation criteria \citep{nist2022ssdf, nist2020zerotrust}. Artifact design and development produced the tool itself, combining static analysis of server source, dynamic adversarial testing, testing of tool permission boundaries, and detection of potential data-leakage paths. Demonstration applies the artifact to controlled \gls{mcp} environments and representative implementation scenarios, with adversarial cases simulating realistic attack patterns \citep{greshake2023prompt, owasp2024llm01}. Evaluation then assesses the tool against qualitative and quantitative criteria; this final stage is reported in Chapter~\ref{chap:results}.
+The research was structured into five stages aligned with the \gls{dsr} cycle. Problem identification and threat analysis examined the \gls{mcp} specification, established threat catalogues such as the \gls{owasp} Top 10 for \gls{llm} Applications and MITRE \gls{atlas}, and documented real-world incidents, to locate attack-surface expansion, trust boundaries, and protocol-level weaknesses in client-server interactions and tool invocation \citep{qi2025protocol}. The definition of security requirements then translated those weaknesses into functional and non-functional requirements that guide the architecture and establish measurable evaluation criteria \citep{nist2022ssdf, nist2020zerotrust}. Artifact design and development produced the tool itself, combining static analysis of server source, dynamic adversarial testing, testing of tool permission boundaries, and detection of potential data-leakage paths. Demonstration applies the artifact to controlled \gls{mcp} environments and representative implementation scenarios, with adversarial cases simulating realistic attack patterns \citep{greshake2023prompt, owasp2024llm01}. Evaluation then assesses the tool against qualitative and quantitative criteria; this final stage is reported in Chapter~\ref{chap:results}.
 
 \section{Document Structure}
 \label{sec:structure}
