@@ -1,44 +1,103 @@
-\chapter{Solution Architecture}
+\chapter{Solution Architecture and Implementation}
 \label{chap:architecture}
+\label{chap:implementation}
 
-% =====================================================================
-%  Chapter 3 with glossary/acronym cross-references wired in.
-%  Acronyms: \gls{} on first prose use (auto-expands), \acrshort{} in
-%  tables (short form, no expansion). Glossary terms: \gls{} / \glsdisp{}.
-%  Requires the entries from chap3-additions.tex to be present in
-%  acronimos.tex and glossario.tex, otherwise these keys are undefined.
-% =====================================================================
-
-This chapter describes the architecture of the proposed tool. It presents the two complementary analyses the tool performs, the shared vocabulary that ties their results together, the decomposition into components, the data that moves between them, and the architectural decisions that a reviewer is most likely to question. Implementation detail, meaning how each component is actually built, is deferred to Chapter~\ref{chap:implementation}; this chapter stays at the level of structure and rationale.
+This chapter describes the tool: what it does, how it is structured, and how each part is built. It opens with an overview of the two analysis paths and the technology stack, follows the dynamic scan pipeline step by step, and presents the shared vulnerability taxonomy and the static analysis path. It then describes the components, the data model, and the handling of credentials and authenticated servers, and closes with the design decisions that cut across the whole and with the testing and continuous-integration setup.
 
 \section{Overview}
+\label{sec:overview}
 
 The tool answers a single question, ``how secure is this \gls{mcp} server,'' along two paths that are useful in different situations. The first is a \emph{dynamic} analysis: it connects to a running server, reasons about the tools the server exposes, and sends real attack traffic to find out which of those tools actually leak or misbehave. The second is a \emph{static} analysis: it reads a server's source code and flags the code that would answer those same attacks, without connecting to anything or executing a single line.
 
 The two paths are deliberately built on one foundation. Both label every finding with the same vulnerability taxonomy (Section~\ref{sec:taxonomy}) and draw remediation text from the same catalog. A finding of type \texttt{command\_injection} therefore means the same thing whether it came from a payload that succeeded against a live server or from a line of source code that a parser flagged. This shared vocabulary is what lets a developer fix statically what the dynamic path would otherwise prove the hard way, and it is the single most important structural property of the design.
 
+\section{Technology Stack}
+\label{sec:stack}
+
+Figure~\ref{fig:stack} summarizes the technologies used, grouped by layer. The backend is written in Python with FastAPI. The choice is driven by the workload: \gls{mcp} sessions, model calls, and tool calls are all I/O-bound and mostly run concurrently, so an async-native framework fits naturally, and FastAPI produces an OpenAPI description for free. The frontend is a React application built with Vite, using plain \texttt{fetch} and no additional libraries. It runs in the browser and talks to the backend over \gls{http}, which is what the \gls{oauth} flow needs: a server-side interface running inside a container cannot open a login page in the user's own browser, whereas a browser-based frontend can.
+
+\begin{sidewaysfigure}
+    \centering
+    \includegraphics[width=\linewidth,height=13.5cm,keepaspectratio]{images/technology-stack-light.pdf}
+    \caption[Technology stack]{Technology stack of the tool: the main path from the operator's browser to the target server, the two model services above the backend, and static analysis and persistence below it. Components inside the dashed region run under Docker Compose.\llmgen}
+    \label{fig:stack}
+\end{sidewaysfigure}
+
+Durable scan history is kept in PostgreSQL, accessed through async SQLAlchemy and \texttt{asyncpg}. \acrshort{json} columns store snapshots, categorizations, and reports without a rigid schema, which suits structures that are still evolving. The \gls{mcp} client is the official \texttt{mcp} Python \gls{sdk} rather than a hand-rolled \gls{jsonrpc} implementation~\cite{anthropic2024mcp}, since the reference implementation already covers the three transports and is actively maintained. Tool classification calls TypeSafe's Jev \gls{api} \citep{typesafe2026systemone}. The \gls{llm} used for attack synthesis and judging is pluggable across OpenAI, Anthropic, and Ollama. Ollama keeps synthesis and judging on the local machine, at some cost to quality, but a scan is not fully offline, since classification still calls Jev's hosted service. Static analysis of the servers under test combines Python's \texttt{ast} module with Bandit. Testing and continuous integration are described in Section~\ref{sec:testing}.
+
+The three pieces, frontend, backend, and database, run as separate Docker Compose services, as Figure~\ref{fig:deploy} shows.
+
+\begin{sidewaysfigure}
+    \centering
+    \includegraphics[width=\linewidth,height=13.5cm,keepaspectratio]{images/deploy-containers.pdf}
+    \caption[Deployment with Docker Compose]{Deployment: the three Docker Compose services, their ports, the database volume, and the external services the backend calls: the target server, the Jev \acrshort{api}, the \acrshort{llm} \acrshort{api}, and optional tracing.\llmgen}
+    \label{fig:deploy}
+\end{sidewaysfigure}
+
 \section{The Dynamic Scan Pipeline}
 \label{sec:pipeline}
 
-The dynamic path is a seven-step pipeline, shown in Figure~\ref{fig:pipeline}. The steps fall into two groups separated by a human decision, and that separation is a security property of the architecture rather than a convenience of the user interface.
+The dynamic path is a seven-step pipeline, shown in Figure~\ref{fig:pipeline}. The steps fall into two groups separated by a human decision, and that separation is a security property of the architecture rather than a convenience of the user interface. The rest of this section follows the pipeline in order.
 
-\begin{figure}[htbp]
+\begin{sidewaysfigure}
     \centering
-    % TODO: export images/arch-pipeline.svg to images/arch-pipeline.pdf
-    % (Overleaf: upload the .svg and it is converted on compile; locally use
-    %  Inkscape or rsvg-convert. The .svg source is already in images/.)
-    \includegraphics[width=\linewidth]{images/arch-pipeline.png}
-    \caption{The dynamic scan pipeline. Steps 1--3 are read-only; steps 5--7 send live attack traffic and run only after an explicit approval.}
+    \includegraphics[width=\linewidth,height=13.5cm,keepaspectratio]{images/arch-pipeline.pdf}
+    \caption[The dynamic scan pipeline]{The dynamic scan pipeline. Discovery and categorization are read-only; the attack and evaluation steps send live traffic and run only after an explicit approval.\llmgen}
     \label{fig:pipeline}
-\end{figure}
+\end{sidewaysfigure}
 
-The first group discovers and understands the target without touching it in anger. The tool connects to the \gls{mcp} server over one of the protocol's transports, calls the server's own listing methods to enumerate the tools, prompts, and resources it exposes, and then classifies each discovered tool. Classification is where a language model first enters the pipeline. A System One model, Jev (Section~\ref{sec:system-one}), reads each tool's name, description, and input schema and answers one independent yes/no question per category, returning the probability that the category is the tool's primary attack surface. The application keeps only the categories above a probability threshold, at most one per tool in the current configuration, so a plainly database-backed tool is not tagged with a spread of speculative categories that would each multiply the attacks sent. Everything up to this point is read-only and safe to run against any reachable server.
+\subsection{Discovery and Classification}
+\label{sec:categorizer}
 
-Between understanding and attacking sits a \glsdisp{human_in_the_loop}{human-in-the-loop} gate. The categorization is returned to the operator for inspection, and nothing is attacked until the operator explicitly approves. This gate is not cosmetic: it is the boundary at which the tool stops being an observer and starts sending traffic that could cause real effects, and the architecture makes that boundary an explicit, separate action.
+The first group of steps discovers and understands the target without touching it in anger. The tool connects to the \gls{mcp} server over one of the protocol's transports, calls the server's own listing methods to enumerate the tools, prompts, and resources it exposes, and then classifies each discovered tool with Jev, the System One model introduced in Section~\ref{sec:system-one}.
 
-The second group tests and reports. For each approved combination of tool, category, and payload, the \gls{llm} synthesizes a schema-valid call that places the attack \gls{payload} in the field most likely to reach a vulnerable \gls{sink} while filling every other required field with a plausible benign value. Each response is then evaluated twice. Fast deterministic rules catch known-format leaks such as secrets, stack traces, or \glsdisp{canary_string}{canary strings}, and an \gls{llm} judge catches the leaks that only semantic understanding can recognize, such as a response that returned another tenant's record. The judge is required to quote the exact span of the response that proves the leak, and the tool verifies that quote is present before trusting the verdict. Finally, the confirmed findings are assembled into a structured report. Each finding carries a \gls{cvss} v3.1 base score and severity band, its impact on confidentiality, integrity, and availability, the judge's confidence, the evidence, and the exact payload used.
+The classifier sends Jev each tool's name, description, and input schema as the request state, together with one yes/no question per semantic category, eleven in all, grouped into requests of at most eight questions. Each question carries the category's description and instructs the model to treat the tool definition as untrusted data, to answer yes only when the category is the tool's primary attack surface, and not to infer hidden behavior. Jev returns a probability for each question. The classifier ranks the categories by probability, keeps those at or above a configurable threshold, 0.6 by default, and caps the result at a configurable number of categories per tool, currently one. A plainly database-backed tool is therefore not tagged with a spread of speculative categories that would each multiply the attacks sent, and the threshold and cap can be tuned without changing the questions.
 
-\newpage
+After the model answers, the code applies the classifier floor (Section~\ref{sec:decisions}). The generic fuzzing category is appended to every tool's result regardless of the probabilities, and if a Jev request fails, the tool receives that baseline alone rather than being dropped. The earlier \gls{llm} classifier is kept in the codebase as a reference and serves as the baseline in the classification benchmark reported in Chapter~\ref{chap:results}. Everything up to this point is read-only and safe to run against any reachable server.
+
+\subsection{The Human Approval Gate}
+\label{sec:gate}
+
+Between understanding and attacking sits a \glsdisp{human_in_the_loop}{human-in-the-loop} gate. Discovery and attack are two separate operations: the read-only discovery call returns the categorization to the operator and never sends attack traffic, and the attack call refuses to run without the identifier of a prior discovery. Nothing is attacked without a deliberate second action, taken after the operator has seen the full categorization. The gate is not cosmetic: it is the boundary at which the tool stops being an observer and starts sending traffic that could cause real effects, and the architecture makes that boundary an explicit, separate action.
+
+\subsection{Payloads and Filter-Evasion Mutations}
+\label{sec:payloads}
+
+The payload library holds a fixed set of attack \glspl{payload} per category, and an adapter layer makes disclosed and synthetic payloads from the project's datasets available through the same interface. Fired as-is, one payload per category tests whether a vulnerable \gls{sink} responds, but it does not test whether a server's \emph{input filtering} can be walked around. A blocklist that rejects the literal string of a known injection may wave through an equivalent variant that an \gls{llm} still reads and obeys.
+
+The mutation layer closes that gap. It models an \emph{operation} as a pure string-to-string transform, among them \texttt{base64}, \texttt{url\_encode}, \texttt{unicode\_escape}, \texttt{hex\_escape}, \texttt{homoglyph}, \texttt{zero\_width}, \texttt{whitespace\_pad}, and \texttt{rot13}, and a \emph{recipe} as an ordered chain of operations where each one's output feeds the next. Because the whole layer is pure transforms with no target, network, or model call, it is self-contained and trivially unit-tested. A mutated template keeps the original payload's success indicators, which is the point: a rule-based hit on an obfuscated variant means both that the obfuscation got past input filtering and that the underlying behavior still fired.
+
+Two guards keep this honest. Latency- and count-based probes carry no textual success indicators, so they are skipped entirely; obfuscating a time-delay payload would break the very trigger its verdict depends on. And a recipe that does not change a given payload, such as a Unicode escape applied to pure ASCII, is not emitted, so the scan never fires a variant identical to its base. Mutations are applied by default only to the text-interpreted categories, where an encoded payload is still meaningful, and the feature is off unless explicitly enabled.
+
+\subsection{Attack Synthesis and Execution}
+\label{sec:executor}
+
+For each approved combination of tool, category, and payload, the executor builds a tool call that places the payload in the field most likely to reach a vulnerable \gls{sink}. The call has to be schema-valid, or the server rejects it before the payload reaches any interesting code. The executor has two ways to produce one. The \gls{llm} path fills every required field other than the injection point with a plausible benign value, so the injected value actually reaches the tool's logic rather than producing a validation error that tests nothing. A static path fills placeholders directly; it is cheaper, works well for simple one- or two-field schemas, and is used automatically if the model call fails. The static path can also be forced globally for fully deterministic runs. Figure~\ref{fig:attack-sequence} shows the request and response sequence of the attack phase.
+
+\begin{sidewaysfigure}
+    \centering
+    \includegraphics[width=\linewidth,height=13.5cm,keepaspectratio]{images/impl-attack-sequence.pdf}
+    \caption[The attack phase]{The attack phase: per-tool payload synthesis, live call, and judging.\llmgen}
+    \label{fig:attack-sequence}
+\end{sidewaysfigure}
+
+By default a run attacks one tool at a time, which keeps it deterministic and reproducible, the right baseline for any measurement. Raising the concurrency cap attacks several tools at once in two phases: the non-timing payloads run concurrently, each tool in its own \gls{mcp} session because one shared session's concurrency safety is not guaranteed, and then the latency-based payloads run serially with nothing else in flight, so load cannot corrupt a timing verdict. The set of findings is the same either way; parallelism changes order and speed, not conclusions.
+
+\subsection{Dual Evaluation and the Grounded Judge}
+\label{sec:evaluator}
+
+Each response is evaluated twice. A rule-based check matches it against known-format signatures, such as secrets, stack traces, or \glsdisp{canary_string}{canary strings}, and against latency thresholds; it is fast, free, and precise, but it only sees what it was written to see. An \gls{llm} judge catches the leaks that only semantic understanding can recognize, such as a response that returned another tenant's record. The judge costs one extra model call, so it is invoked only where semantics are needed: on confirmed rule-based hits, for an explanation and a grounded evidence span, and on the categories that are inherently semantic.
+
+The judge is constrained rather than trusted. It must return the exact span of the response that proves the leak or the execution, and it is told, per category, that an error, refusal, validation failure, or timeout is a \emph{failed} attack unless the error itself is the disclosure, such as a traceback exposing internal paths or a database error revealing a schema. After the model answers, the code verifies that the quoted span is actually present in the response, normalized for whitespace and case and subject to a minimum length; if the quote is missing, empty, or too short, a ``vulnerable'' verdict is flipped to not-vulnerable, with the original reasoning kept for audit. Because this check is deterministic and model-agnostic, it catches a hallucinated success regardless of which provider or model produced it, while rule-based hits, already grounded in a concrete match, are left untouched.
+
+Finally, the confirmed findings are assembled into a structured report, exportable as \acrshort{json} or Markdown. Each finding carries a \gls{cvss} v3.1 base score and severity band (Section~\ref{sec:scoring}), its impact on confidentiality, integrity, and availability, the judge's confidence, the evidence, and the exact payload used.
+
+\subsection{The LLM Provider Abstraction and Observability}
+\label{sec:llm-provider}
+
+Every \gls{llm} call in the pipeline, attack synthesis and judging, passes through one method on a provider abstraction, \texttt{complete\_json}. Each provider implements that method, and each implementation is wrapped in a single tracing decorator. The payoff is twofold. A change to tracing is made once and applies to all three providers uniformly, including Ollama's raw \acrshort{http} path, which vendor-specific auto-instrumentation would have missed. And the one chokepoint is where model name and token usage are recorded, which is what lets the cost of a scan be attributed per call.
+
+The per-call records are grouped into one trace per scan. A scan opens a root span tagged with the target and the provider, and a child span per tool, so an entire scan reads as one tree, discover, categorize, then synthesize and judge for each tool, rather than a hundred disconnected calls. Jev requests do not pass through the provider abstraction, since they use a different \gls{api}, but each one is recorded in the same trace with its request, response, and token usage. Tracing is a strict no-op when its keys are unset, and every traced call is wrapped so that a tracing fault can never break a scan, which keeps observability genuinely optional.
 
 \section{Vulnerability Taxonomy}
 \label{sec:taxonomy}
@@ -70,19 +129,17 @@ Generic Schema \glsdisp{fuzzing}{Fuzzing} & Applied to every tool as the baselin
 \label{tab:taxonomy}
 \end{table}
 
-One category, generic schema fuzzing, is a non-negotiable floor. Every tool receives it regardless of what the classifier decides, which matters because a tool description is untrusted content that an attacker could craft to talk the classifier out of flagging anything. The floor guarantees that every tool is attacked at a baseline level even if the classifier is manipulated, fails, or times out. The rationale for this floor as a defense against injection aimed at the tool's own triage step is examined in Section~\ref{sec:decisions}.
+One category, generic schema fuzzing, is applied to every tool regardless of the classifier's answer, so every tool is attacked at a baseline level even if its classification is manipulated or fails (Section~\ref{sec:decisions}).
 
-\subsection{Severity Scoring}
 \label{sec:scoring}
-
 A finding has to say how serious it is and what it puts at risk. Rather than define a project-specific scale, the tool adopts the \gls{cvss} v3.1 base metrics~\cite{first2019cvss}. The choice has two practical consequences. First, the confidentiality, integrity, and availability triad is already part of every \gls{cvss} vector as the C, I, and A impact metrics, so the \gls{cia} impact of a finding is read directly from the same vector that produces its score. Second, the 0 to 10 number and its band (None, Low, Medium, High, Critical) are computed by the standard's published formula, so no score in the report is chosen by hand.
 
 Each category in the taxonomy is assigned one base vector, stored next to its remediation text in the shared catalog. All vectors assume an \gls{mcp} server reachable over the network by an unauthenticated caller (AV:N, PR:N, UI:N) unless the category itself implies otherwise. Table~\ref{tab:cvss} lists the vectors and the resulting scores.
 
 \begin{table}[htbp]
 \centering
-\small
-\begin{tabular}{p{4.0cm} p{4.6cm} c c c}
+\footnotesize
+\begin{tabular}{p{3.3cm} l c c c}
 \hline
 \textbf{Category} & \textbf{Base vector (after \texttt{CVSS:3.1/})} & \textbf{Score} & \textbf{Band} & \textbf{C/I/A} \\
 \hline
@@ -108,13 +165,11 @@ The metric choices that move the score most deserve a justification. Scope is se
 
 These vectors are a defensible starting point, not fixed truths, and they are kept as data in the catalog so they can be revised without touching code.
 
-
 \section{The Static Analysis Path}
 \label{sec:static}
+\label{sec:static-impl}
 
-The static path reads source code and never connects to a server. It walks a checkout for Python files, parses each one, inventories what the server exposes, and flags the code an attacker could reach. The inventory records server instantiation, the tool, resource, and prompt registrations with their parameters and line ranges, the declared transport, and any authentication hints. Risk detection then runs over the same files and keeps only the findings that map onto the taxonomy, attributing each one to the specific tool whose body contains it. A dangerous call inside a registered tool is reachable by anything that can invoke that tool; the same call in a helper script is not, and the attribution preserves that distinction.
-
-The two paths exist together because they answer different questions about the same weakness, as Table~\ref{tab:static-vs-dynamic} sets out. The static path answers ``which code would answer this payload,'' with a line of source as evidence, before the dynamic path, or anyone else's pentest tool, answers ``did this payload actually work'' with the server's response as evidence.
+The static path reads source code and never connects to a server. It exists alongside the dynamic path because the two answer different questions about the same weakness, as Table~\ref{tab:static-vs-dynamic} sets out. The static path answers ``which code would answer this payload,'' with a line of source as evidence, before the dynamic path, or anyone else's pentest tool, answers ``did this payload actually work'' with the server's response as evidence.
 
 \begin{table}[htbp]
 \centering
@@ -133,52 +188,75 @@ Evidence & The server's response & The line of code \\
 \label{tab:static-vs-dynamic}
 \end{table}
 
+Source arrives one of two ways, both refusing anything unsafe. A public repository is shallow-cloned over \gls{https} only, with other \acrshort{url} schemes refused and git never prompting for credentials, and is deleted after analysis. An uploaded folder is accepted only for the relevant file types, with absolute paths or paths containing parent-directory references rejected rather than sanitized. A safe file walk then applies exclusions, file-count and size caps, and a refusal to follow symlinks out of the root. Figure~\ref{fig:static-flow} shows how a run moves from ingested source to attributed findings.
+
+\begin{sidewaysfigure}
+    \centering
+    \includegraphics[width=\linewidth,height=13.5cm,keepaspectratio]{images/impl-static-analysis.pdf}
+    \caption[Static analysis flow]{Static analysis: parse, inventory the exposed surface, and attribute risk findings to the tool that exposes them.\llmgen}
+    \label{fig:static-flow}
+\end{sidewaysfigure}
+
+Each file is parsed to an \gls{ast}, and a syntax error is recorded while the run continues, so analysis is partial rather than all-or-nothing. The inventory pass is hand-written tree walking because it needs MCP-specific knowledge: which function is a registered tool, and where its body ends. It records server instantiation, the tool, resource, and prompt registrations with their parameters and line ranges, the declared transport, and authentication hints, and reads the declared MCP dependency version from the project's requirements.
+
+Risk detection reuses Bandit rather than hand-rolling sink matching; this engine's contribution is mapping Bandit's test identifiers onto the taxonomy and attributing each hit to the tool that exposes it. A shell-executing call maps to \gls{command_injection}, a string-built query to \acrshort{sql} injection, and a pickle load to \glsdisp{deserialization_attack}{deserialization}, while a hit outside the taxonomy is dropped. A dangerous call inside a registered tool's line range is attributed to that tool, because it is reachable by anything that can invoke the tool; the same call in a helper script is not, and the attribution preserves that distinction. The same analysis is available offline through a command-line entry point, so it can run with neither a server nor the web interface.
+
 \section{Component Architecture}
 \label{sec:components}
 
 Figure~\ref{fig:components} shows the decomposition into components. At the centre is a set of data models that form the shared vocabulary every other component speaks: a normalized representation of a discovered tool, the categorization result, the synthesized attacks and their verdicts, and the final report. Keeping these models in one place is what allows the dynamic and static paths to produce comparable output without coordinating directly.
 
-\begin{figure}[htbp]
+\begin{sidewaysfigure}
     \centering
-    % TODO: export images/arch-components.svg to images/arch-components.pdf
-    \includegraphics[width=\linewidth]{images/arch-components.png}
-    \caption{Component decomposition. The shared data models sit between the two analysis paths.}
+    \includegraphics[width=\linewidth,height=13.5cm,keepaspectratio]{images/arch-components.pdf}
+    \caption[Component decomposition]{Component decomposition. The pipeline core coordinates the dynamic path; the static path reads source only; external services are on the right.\llmgen}
     \label{fig:components}
-\end{figure}
+\end{sidewaysfigure}
 
 Around that core, the dynamic path is built from an \gls{mcp} client that handles the three transports, a connection layer that owns credential lifecycle and the \gls{oauth} flow, a categorization component that calls the Jev \gls{api}, an \gls{llm} provider component shared by attack synthesis and judging, an attacks component that holds the payload library and the synthesis logic, an evaluation component that runs the dual verdict, and an orchestration layer that wires these together and owns the human-approval split. The static path is a self-contained set of components for obtaining source, walking it safely, parsing it, inventorying the exposed surface, and running the risk rules. Supporting both are a security-practices catalog that supplies remediation, a persistence layer that is the only code allowed to touch the database, a reporting component, and the web \gls{api}. A React frontend presents the whole as three tabs: the live-scan wizard, the payload library and attack history, and the code-review view.
 
-\section{Data Model and Persistence}
+\section{Data Model, Persistence, and Credentials}
 \label{sec:data}
+\label{sec:persistence}
 
 Figure~\ref{fig:data-model} shows the persisted data model. The design records the \emph{outputs} of a scan, the snapshot of what the server exposed, the categorization, and the report, and stores them in a relational database using \acrshort{json} columns so that these evolving structures do not require a rigid schema this early in the project. Durable scan history is what gives the tool value a single-shot scanner lacks: the ability to compare a server against itself over time.
 
-\begin{figure}[htbp]
+\begin{sidewaysfigure}
     \centering
-    % TODO: export images/arch-data-model.svg to images/arch-data-model.pdf
-    \includegraphics[width=\linewidth]{images/arch-data-model.png}
-    \caption{Persisted data model. Only scan outputs are stored; connection credentials never are.}
+    \includegraphics[width=\linewidth,height=13.5cm,keepaspectratio]{images/arch-data-model.pdf}
+    \caption[Persisted data model]{Persisted data model. Only scan outputs are stored; connection credentials never are.\llmgen}
     \label{fig:data-model}
-\end{figure}
+\end{sidewaysfigure}
 
-What the model deliberately does not store is the connection credentials. The \acrshort{url}, headers, or command used to reach the target, which may carry a bearer token for the server under test, live only in memory for the duration of one discover-then-attack cycle and are deleted as soon as the attack run finishes. The cost of this choice is that a process restart between discovery and attack forces a fresh discovery; the benefit is that a security tool never becomes a store of the very credentials it was handling. This is examined further in the next section.
+The database is reached only through a repository component, the only code that touches the \gls{orm}, which keeps persistence concerns out of the rest of the pipeline and isolates any future schema change to one place. The \acrshort{json} columns are written to be portable across both SQLite and PostgreSQL, which is what lets the test suite run the full persistence layer against an in-memory SQLite database (Section~\ref{sec:testing}).
+
+What the model deliberately does not store is the connection credentials. The \acrshort{url}, headers, or command used to reach the target, which may carry a bearer token for the server under test, live only in memory for the duration of one discover-then-attack cycle and are deleted as soon as the attack run finishes. The cost of this choice is that a process restart between discovery and attack forces a fresh discovery. The benefit is that a security tool never becomes a store of the very credentials it was handling, a risk that, for a security tool specifically, outweighs the convenience of surviving a restart.
+
+\subsection{Authenticated Servers: the OAuth Flow}
+\label{sec:oauth}
+
+\gls{mcp} servers exposed over \gls{http} increasingly require \gls{oauth} rather than a static token~\cite{mcp2025spec}. The implementation builds entirely on the official \gls{sdk}'s OAuth client provider, so metadata discovery, \glsdisp{dynamic_client_registration}{dynamic client registration}, and \gls{pkce} are the SDK's responsibility, not reimplemented here. The protocol chain is the standard one~\cite{rfc6749}: the client asks the server which authorization server handles it, asks that server for its endpoints, obtains a client identifier, and completes an authorization-code grant with PKCE~\cite{rfc7636} as mandated for a public client that has no secret to keep confidential.
+
+The flow is matched to a two-phase interface. A start call creates an in-memory connection and begins discovery in the background; its redirect handler opens the system browser to the authorize URL and records the OAuth state so the later callback can be matched to the right pending login. The provider blocks until the callback resolves it with the returned code, the SDK completes the token exchange internally, and discovery and classification then run over the now-authenticated session as the same step. The resulting bearer token is folded into the same process-local credential store every other transport uses, so the attack call needs no OAuth-specific code. Tokens and client information are reused per target \acrshort{url} for the life of the process and, like every other credential, are never written to the database or to disk.
+
+Two interoperability issues encountered while building this are worth recording, because they are the kind of detail a practitioner repeating the work would hit. One provider, in the absence of an explicit token-endpoint authentication method at registration, defaulted new clients to a confidential-client method and issued a secret the tool had no business holding, after which the SDK sent the client identifier in two places at once and the authorization server rejected it; the fix was to request the public-client method explicitly at registration time. Another provider has no registration endpoint at all, returning a bare 404, which confirmed that dynamic registration is simply unimplemented there and motivated a manual escape hatch that pre-seeds the client information so the SDK skips registration entirely.
 
 \section{Architectural Design Decisions}
 \label{sec:decisions}
 
-Several choices shape the architecture rather than any single component, and each answers a question a reviewer would reasonably raise.
-
-Discovery and attack are two separate operations. The read-only discovery call never sends attack traffic, and the attack call refuses to run without the identifier of a prior discovery. This is the structural form of the \glsdisp{human_in_the_loop}{human-in-the-loop} gate: nothing is attacked without a deliberate second action, taken after the operator has seen the full categorization.
-
-Connection credentials are never persisted. As described in Section~\ref{sec:data}, only scan outputs reach the database. For a security tool specifically, the risk of accumulating target credentials outweighs the convenience of surviving a restart.
-
-Evaluation is dual rather than single. Rule-based checks are fast, precise, and free, but blind to anything that does not match a known format. The \gls{llm} judge catches the semantic leaks no regular expression could enumerate in advance, at the cost of one extra model call, and it runs only where that cost is justified. Crucially, the judge's verdict is grounded, not trusted: it must quote the exact span of the response that proves the finding, and a verdict whose evidence cannot be located in the response is overruled. This guard is deterministic and independent of which model is configured, so it catches a confidently wrong judge regardless of provider.
-
-Severity comes from a public standard rather than from the judge. The \gls{llm} judge decides whether an attack succeeded and how confident it is, but the severity of a confirmed finding is the band of its category's \gls{cvss} vector (Section~\ref{sec:scoring}). Letting the model also choose the severity would put a second unvalidated judgement in the report, one that could differ between runs and providers for the same evidence. Fixing it to the standard makes every finding of the same category comparable across servers, scans, and models. The same reasoning sets the single aggregate figure for a scan: the highest \gls{cvss} score among its findings, which is the usual convention in vulnerability reporting: the worst confirmed weakness decides how exposed the server is.
-
+Several decisions are explained where their mechanism is described: the human approval gate (Section~\ref{sec:gate}), the dual evaluation and grounded judge (Section~\ref{sec:evaluator}), sequential execution by default (Section~\ref{sec:executor}), and the refusal to persist credentials (Section~\ref{sec:data}). Three further decisions cut across components and are collected here.
 
 Classification uses a System One model rather than a generative \gls{llm}. The tool was first built with an \gls{llm} classifier, which is kept in the code for comparison. Classification is a narrow decision, repeated for every tool and category and consumed by code rather than read by a person, which is the case a System One model is built for: each category becomes an independent probability that can be thresholded, instead of a list the model writes and the code must parse. In a benchmark over the 22 tools of the evaluation corpus (Chapter~\ref{chap:results}), Jev reached an F1 score of 0.86, against 0.84 and 0.86 for the \gls{llm} classifier (GPT-5.4 mini) in two runs, at roughly one seventh of the cost and less than half of the latency per tool. Attack synthesis and judging stay with a generative \gls{llm}, because they require writing text and explaining a verdict.
 
-The classifier has a floor it cannot remove. Because a tool description is untrusted text fed into a model, a crafted description could try to manipulate the classifier into reporting nothing. Each Jev question therefore instructs the model to treat the tool definition as data rather than instructions, the application adds the generic-fuzzing floor to every result whatever the model answers, and a tool whose classification fails falls back to that baseline instead of being dropped. Together these ensure that no tool silently vanishes from the results. The tool's own triage step is exposed to the same injection risk it is built to detect, and the architecture answers that explicitly rather than assuming the classifier is trustworthy.
+The classifier has a floor it cannot remove. Because a tool description is untrusted text fed into a model, a crafted description could try to manipulate the classifier into reporting nothing. The measures described in Section~\ref{sec:categorizer}, framing the tool definition as data rather than instructions, appending the generic fuzzing category in code, and falling back to that baseline when classification fails, ensure that no tool silently vanishes from the results. The tool's own triage step is exposed to the same injection risk it is built to detect, and the architecture answers that explicitly rather than assuming the classifier is trustworthy.
 
-Attacks run sequentially by default. A strictly sequential run is deterministic and reproducible, which is the right baseline for any measurement. Parallelism is available on request for speed, but it changes the order and the load, not the set of findings, and timing-sensitive checks are always isolated so that scan-induced load cannot corrupt a latency-based verdict.
+Severity comes from a public standard rather than from the judge. The \gls{llm} judge decides whether an attack succeeded and how confident it is, but the severity of a confirmed finding is the band of its category's \gls{cvss} vector (Section~\ref{sec:scoring}). Letting the model also choose the severity would put a second unvalidated judgement in the report, one that could differ between runs and providers for the same evidence. Fixing it to the standard makes every finding of the same category comparable across servers, scans, and models. The same reasoning sets the single aggregate figure for a scan, the highest \gls{cvss} score among its findings, following the usual convention in vulnerability reporting that the worst confirmed weakness decides how exposed the server is.
+
+\section{Testing and Continuous Integration}
+\label{sec:testing}
+
+The test suite uses Pytest with \texttt{pytest-asyncio} and runs without network access. The Jev classifier has no unit tests yet; its behavior is measured instead by the classification benchmark in Chapter~\ref{chap:results}. The earlier \gls{llm} classifier is tested against a stubbed provider, covering the two floor-related failure modes: a tool silently dropped from the answer and a failed call. The persistence layer is tested against in-memory SQLite, including the round trip from a Pydantic model to a dictionary to database \acrshort{json} and back that the attack orchestration depends on. The static analysis tests cover both directions of its contribution: a dangerous call inside a registered tool must come back attributed to that tool, and a Bandit finding outside the taxonomy must be dropped rather than reported. The payload mutations are covered as pure functions.
+
+A parity test keeps the frontend's copy of the taxonomy in sync with the Python enumerations, and the remediation catalog is checked so that every category resolves to remediation text and carries a valid \gls{cvss} vector. A deterministic test fixes one known vector, the \acrshort{sql} injection one, to its expected score of 9.4, its Critical band, and its high, high, low impact, so a change in the library or the catalog cannot silently shift the scores reported in Chapter~\ref{chap:results}.
+
+On every push, continuous integration runs the test suite and three security tools against the tool's own code: Bandit, \texttt{pip-audit}, and \texttt{detect-secrets}. All three currently pass clean, verified in CI rather than assumed.

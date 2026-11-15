@@ -1,6 +1,11 @@
 \documentclass[a4paper,12pt,twoside]{book}
 \usepackage{mei/mei}
 \usepackage{tikz}
+\usetikzlibrary{shapes.geometric}
+\usepackage[figuresright]{rotating}
+\definecolor{accent}{HTML}{00C83C}
+\definecolor{accentdark}{HTML}{009A2E}
+\newcommand{\llmgen}{ (Diagram generated with the assistance of an LLM.)}
 
 % Diagrams exported from docs/diagrams are included as PDF.
 % On Overleaf you can upload the .svg directly and it is converted on compile;
@@ -30,7 +35,7 @@ Implementations}
 \maketitle
 
 \begin{resumo}
-A crescente adoção do Model Context Protocol (MCP) tem permitido que sistemas baseados em modelos de linguagem interajam com ferramentas externas, bases de dados e serviços, expandindo significativamente as suas capacidades. Contudo, esta maior conectividade introduz novas superfícies de ataque e riscos de segurança, incluindo ataques de prompt injection, acesso não autorizado a dados, uso indevido de ferramentas e vulnerabilidades agente-para-agente (A2A).
+A crescente adoção do Model Context Protocol (MCP) tem permitido que sistemas baseados em modelos de linguagem interajam com ferramentas externas, bases de dados e serviços, expandindo significativamente as suas capacidades. Contudo, esta maior conectividade introduz novas superfícies de ataque e riscos de segurança, incluindo ataques de prompt injection, acesso não autorizado a dados, uso indevido de ferramentas e vulnerabilidades agente-para-agente (A2A).\footnote{O texto desta dissertação foi revisto com o apoio de uma ferramenta de inteligência artificial; o conteúdo e as conclusões são da responsabilidade do autor.}
 
 Esta dissertação apresenta o desenvolvimento de uma ferramenta de segurança para implementações MCP, com foco na identificação, mitigação e prevenção de vulnerabilidades específicas deste ecossistema. Seguindo uma abordagem de Design Science Research, foi concebido e validado um artefacto técnico aplicável a contextos reais.
 
@@ -43,7 +48,7 @@ O principal contributo consiste numa ferramenta que combina duas análises compl
 \end{resumo}
 
 \begin{abstract}
-The increasing adoption of the Model Context Protocol (MCP) has enabled language model--based systems to interact with external tools, databases, and services, significantly expanding their capabilities. However, this increased connectivity introduces new attack surfaces and security risks, including prompt injection attacks, unauthorized data access, tool misuse, and agent-to-agent (A2A) vulnerabilities.
+The increasing adoption of the Model Context Protocol (MCP) has enabled language model--based systems to interact with external tools, databases, and services, significantly expanding their capabilities. However, this increased connectivity introduces new attack surfaces and security risks, including prompt injection attacks, unauthorized data access, tool misuse, and agent-to-agent (A2A) vulnerabilities.\footnote{The text of this dissertation was revised with the assistance of an AI tool; its content and conclusions are the author's own.}
 
 This dissertation presents the development of a security tool for MCP implementations, focusing on the identification, mitigation, and prevention of vulnerabilities specific to this ecosystem. Following a Design Science Research approach, a technical artifact was designed and validated for real-world application.
 
@@ -86,7 +91,6 @@ The main contribution is a tool that combines two complementary analyses over a 
 \input{chap1}
 \input{chap2}
 \input{chap3}
-\input{chap4}
 \input{chap5}
 \input{chap6}
 

@@ -18,19 +18,19 @@ A modern \gls{llm} is a neural network, almost always based on the Transformer a
 \begin{tikzpicture}[font=\small, >=stealth]
   \node[draw, rounded corners, align=left, text width=4.0cm, inner sep=6pt] (ctx) at (0,0)
     {\textbf{Context window}\\[2pt]\texttt{The MCP server exposes a}};
-  \node[draw, rounded corners, fill=gray!15, minimum width=1.8cm, minimum height=1cm] (llm) at (3.6,0) {\textbf{LLM}};
+  \node[draw=accentdark, rounded corners, fill=accent!15, minimum width=1.8cm, minimum height=1cm] (llm) at (3.6,0) {\textbf{LLM}};
   \draw[->, thick] (ctx.east) -- (llm.west);
   \draw[->, thick] (llm.east) -- (5.3,0);
   \foreach \tok/\p [count=\i] in {tool/0.58, list/0.17, resource/0.12, prompt/0.08, new/0.05} {
     \pgfmathsetmacro{\y}{1.2-(\i-1)*0.6}
     \node[anchor=east] at (7.3,\y) {\texttt{\tok}};
-    \fill[gray!55] (7.4,\y-0.18) rectangle ++({\p*6},0.36);
+    \fill[accent!70] (7.4,\y-0.18) rectangle ++({\p*6},0.36);
     \node[anchor=west] at ({7.45+\p*6},\y) {\p};
   }
-  \draw[thick] (5.8,0.88) rectangle (11.85,1.52);
+  \draw[thick, accentdark] (5.8,0.88) rectangle (11.85,1.52);
   \draw[->, dashed] (8.8,1.52) to[out=150, in=30] node[above, pos=0.5] {append \texttt{tool} and repeat} (ctx.north);
 \end{tikzpicture}
-\caption{One step of next-token prediction. The model assigns a probability to every candidate token (five shown; values are illustrative), one token is chosen, appended to the context, and the process repeats.}
+\caption[One step of next-token prediction]{One step of next-token prediction. The model assigns a probability to every candidate token (five shown; values are illustrative), one token is chosen, appended to the context, and the process repeats.\llmgen}
 \label{fig:next-token}
 \end{figure}
 

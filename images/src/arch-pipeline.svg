@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1280 1056" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="readme-pipeline-title readme-pipeline-desc" id="readme-pipeline-root">
+        <title id="readme-pipeline-title">Scan pipeline: discover, approve, attack, report</title>
+        <desc id="readme-pipeline-desc">Pipeline of the MCP security tool: it connects to an MCP server, discovers its capabilities and has Jev categorize them into the pentest taxonomy read-only, waits for a human approval via POST /attack, then the attack executor combines the payload library with LLM-synthesized arguments to send live tool calls, scores each response with a rule-based evaluator and an LLM judge, and stores the resulting findings in Postgres and a JSON or Markdown report.</desc>
+        <defs>
+      <style>@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500;600&amp;family=Noto+Serif:ital@0;1&amp;family=Noto+Sans+KR:wght@400;500;600&amp;family=Noto+Serif+KR:wght@400&amp;family=Noto+Sans+TC:wght@400;500;600&amp;family=Noto+Serif+TC:wght@400&amp;display=swap');
+      #readme-pipeline-root { --color-paper:   #f5f5f5;
+      --color-ink:     #2d3142;
+      --color-muted:   #4f5d75;
+      --color-accent:  #00c83c;
+      --font-sans:     'Geist', system-ui, sans-serif;
+      --font-serif:    'Instrument Serif', 'Noto Serif', serif;
+      --font-mono:     'Geist Mono', ui-monospace, monospace; }
+      #readme-pipeline-root { font-family: var(--font-sans); color: var(--color-ink); }
+      #readme-pipeline-root .diagram-container { width: 100%; overflow-x: auto; }
+      #readme-pipeline-root .diagram-container { overflow-x: visible; }</style>
+          <marker id="readme-pipeline-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#4f5d75"/></marker>
+        </defs>
+        <rect width="100%" height="100%" fill="#f5f5f5"/>
+        <!-- Zones -->
+        <rect x="88" y="56" width="1104" height="128" rx="8" fill="#ececec" stroke="#2d3142" stroke-opacity="0.10" stroke-width="0.8"/>
+        <text x="104" y="76" fill="#7a8399" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.14em">READ-ONLY · SAFE ON ANY REACHABLE SERVER</text>
+        <rect x="648" y="216" width="264" height="128" rx="8" fill="#ececec" stroke="#2d3142" stroke-opacity="0.10" stroke-width="0.8"/>
+        <text x="664" y="236" fill="#7a8399" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.14em">APPROVAL</text>
+        <rect x="88" y="376" width="1104" height="336" rx="8" fill="#ececec" stroke="#2d3142" stroke-opacity="0.10" stroke-width="0.8"/>
+        <text x="104" y="396" fill="#7a8399" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.14em">LIVE TEST TRAFFIC</text>
+        <rect x="648" y="744" width="544" height="232" rx="8" fill="#ececec" stroke="#2d3142" stroke-opacity="0.10" stroke-width="0.8"/>
+        <text x="664" y="764" fill="#7a8399" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.14em">RESULTS</text>
+        <!-- Connectors (before nodes) -->
+        <path d="M 320,128 H 400" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#readme-pipeline-arrow)"/>
+        <path d="M 600,128 H 680" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#readme-pipeline-arrow)"/>
+        <path d="M 880,128 H 960" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#readme-pipeline-arrow)"/>
+        <path d="M 780,160 V 256" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#readme-pipeline-arrow)"/>
+        <path d="M 780,320 V 416" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#readme-pipeline-arrow)"/>
+        <path d="M 680,448 H 600" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#readme-pipeline-arrow)"/>
+        <path d="M 880,448 H 960" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#readme-pipeline-arrow)"/>
+        <path d="M 1060,480 V 520" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#readme-pipeline-arrow)"/>
+        <path d="M 960,552 H 788 Q 780,552 780,560 V 624" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#readme-pipeline-arrow)"/>
+        <path d="M 1060,584 V 624" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#readme-pipeline-arrow)"/>
+        <path d="M 850,688 V 784" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#readme-pipeline-arrow)"/>
+        <path d="M 990,688 V 784" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#readme-pipeline-arrow)"/>
+        <path d="M 868,848 V 888" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#readme-pipeline-arrow)"/>
+        <path d="M 972,848 V 888" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#readme-pipeline-arrow)"/>
+        <!-- Nodes -->
+        <rect x="120" y="96" width="200" height="64" rx="6" fill="#f5f5f5"/>
+        <rect x="120" y="96" width="200" height="64" rx="6" fill="#4f5d75" fill-opacity="0.10" stroke="#7a8399" stroke-width="1"/>
+        <rect x="128" y="102" width="24" height="12" rx="2" fill="none" stroke="#2d3142" stroke-opacity="0.40" stroke-width="0.8"/>
+        <text x="140" y="111" fill="#4f5d75" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.08em">MCP</text>
+        <text x="220" y="130" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Connect to MCP server</text>
+        <text x="220" y="146" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">mcp_client/client.py</text>
+        <rect x="400" y="96" width="200" height="64" rx="6" fill="#f5f5f5"/>
+        <rect x="400" y="96" width="200" height="64" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+        <rect x="408" y="102" width="24" height="12" rx="2" fill="none" stroke="#2d3142" stroke-opacity="0.40" stroke-width="0.8"/>
+        <text x="420" y="111" fill="#4f5d75" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.08em">MCP</text>
+        <text x="500" y="130" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Discover</text>
+        <text x="500" y="146" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">list_tools · prompts · resources</text>
+        <rect x="680" y="96" width="200" height="64" rx="6" fill="#f5f5f5"/>
+        <rect x="680" y="96" width="200" height="64" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+        <rect x="688" y="102" width="24" height="12" rx="2" fill="none" stroke="#2d3142" stroke-opacity="0.40" stroke-width="0.8"/>
+        <text x="700" y="111" fill="#4f5d75" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.08em">JEV</text>
+        <text x="780" y="126" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Jev Categorization</text>
+        <text x="780" y="140" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">yes/no probability per category</text>
+        <text x="780" y="152" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">threshold 0.6, max 1 + baseline</text>
+        <rect x="960" y="96" width="200" height="64" rx="6" fill="#f5f5f5"/>
+        <rect x="960" y="96" width="200" height="64" rx="6" fill="#2d3142" fill-opacity="0.05" stroke="#4f5d75" stroke-width="1"/>
+        <rect x="968" y="102" width="28" height="12" rx="2" fill="none" stroke="#2d3142" stroke-opacity="0.40" stroke-width="0.8"/>
+        <text x="982" y="111" fill="#4f5d75" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.08em">ENUM</text>
+        <text x="1060" y="130" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Pentest category taxonomy</text>
+        <text x="1060" y="146" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">PentestCategory</text>
+        <rect x="680" y="256" width="200" height="64" rx="6" fill="#f5f5f5"/>
+        <rect x="680" y="256" width="200" height="64" rx="6" fill="#00c83c" fill-opacity="0.08" stroke="#00c83c" stroke-width="1"/>
+        <rect x="688" y="262" width="28" height="12" rx="2" fill="none" stroke="#00c83c" stroke-opacity="0.60" stroke-width="0.8"/>
+        <text x="702" y="271" fill="#009a2e" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.08em">GATE</text>
+        <text x="780" y="290" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Human review gate</text>
+        <text x="780" y="306" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">POST /attack = approval</text>
+        <rect x="400" y="416" width="200" height="64" rx="6" fill="#f5f5f5"/>
+        <rect x="400" y="416" width="200" height="64" rx="6" fill="#2d3142" fill-opacity="0.05" stroke="#4f5d75" stroke-width="1"/>
+        <rect x="408" y="422" width="28" height="12" rx="2" fill="none" stroke="#2d3142" stroke-opacity="0.40" stroke-width="0.8"/>
+        <text x="422" y="431" fill="#4f5d75" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.08em">DATA</text>
+        <text x="500" y="450" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Payload Library</text>
+        <text x="500" y="466" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">attacks/payload_library.py</text>
+        <rect x="680" y="416" width="200" height="64" rx="6" fill="#f5f5f5"/>
+        <rect x="680" y="416" width="200" height="64" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+        <rect x="688" y="422" width="28" height="12" rx="2" fill="none" stroke="#2d3142" stroke-opacity="0.40" stroke-width="0.8"/>
+        <text x="702" y="431" fill="#4f5d75" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.08em">CORE</text>
+        <text x="780" y="450" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Attack Executor</text>
+        <text x="780" y="466" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">attacks/executor.py</text>
+        <rect x="960" y="416" width="200" height="64" rx="6" fill="#f5f5f5"/>
+        <rect x="960" y="416" width="200" height="64" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+        <rect x="968" y="422" width="24" height="12" rx="2" fill="none" stroke="#2d3142" stroke-opacity="0.40" stroke-width="0.8"/>
+        <text x="980" y="431" fill="#4f5d75" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.08em">LLM</text>
+        <text x="1060" y="450" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">LLM argument synthesis</text>
+        <text x="1060" y="466" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">schema-valid args per tool</text>
+        <rect x="960" y="520" width="200" height="64" rx="6" fill="#f5f5f5"/>
+        <rect x="960" y="520" width="200" height="64" rx="6" fill="#2d3142" fill-opacity="0.03" stroke="#2d3142" stroke-opacity="0.30" stroke-width="1"/>
+        <rect x="968" y="526" width="24" height="12" rx="2" fill="none" stroke="#2d3142" stroke-opacity="0.40" stroke-width="0.8"/>
+        <text x="980" y="535" fill="#4f5d75" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.08em">MCP</text>
+        <text x="1060" y="554" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Send real tool call</text>
+        <text x="1060" y="570" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">to the target MCP server</text>
+        <rect x="680" y="624" width="200" height="64" rx="6" fill="#f5f5f5"/>
+        <rect x="680" y="624" width="200" height="64" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+        <rect x="688" y="630" width="28" height="12" rx="2" fill="none" stroke="#2d3142" stroke-opacity="0.40" stroke-width="0.8"/>
+        <text x="702" y="639" fill="#4f5d75" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.08em">RULE</text>
+        <text x="780" y="658" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Rule-based evaluator</text>
+        <text x="780" y="674" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">regex / latency</text>
+        <rect x="960" y="624" width="200" height="64" rx="6" fill="#f5f5f5"/>
+        <rect x="960" y="624" width="200" height="64" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+        <rect x="968" y="630" width="24" height="12" rx="2" fill="none" stroke="#2d3142" stroke-opacity="0.40" stroke-width="0.8"/>
+        <text x="980" y="639" fill="#4f5d75" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.08em">LLM</text>
+        <text x="1060" y="658" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">LLM Judge</text>
+        <text x="1060" y="674" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">semantic evaluation</text>
+        <rect x="820" y="784" width="200" height="64" rx="6" fill="#f5f5f5"/>
+        <rect x="820" y="784" width="200" height="64" rx="6" fill="#00c83c" fill-opacity="0.08" stroke="#00c83c" stroke-width="1"/>
+        <rect x="828" y="790" width="28" height="12" rx="2" fill="none" stroke="#00c83c" stroke-opacity="0.60" stroke-width="0.8"/>
+        <text x="842" y="799" fill="#009a2e" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.08em">CORE</text>
+        <text x="920" y="818" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Findings</text>
+        <text x="920" y="834" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">models/findings.py</text>
+        <rect x="680" y="888" width="200" height="64" rx="6" fill="#f5f5f5"/>
+        <rect x="680" y="888" width="200" height="64" rx="6" fill="#2d3142" fill-opacity="0.05" stroke="#4f5d75" stroke-width="1"/>
+        <rect x="688" y="894" width="20" height="12" rx="2" fill="none" stroke="#2d3142" stroke-opacity="0.40" stroke-width="0.8"/>
+        <text x="698" y="903" fill="#4f5d75" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.08em">DB</text>
+        <text x="780" y="922" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Postgres</text>
+        <text x="780" y="938" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">asyncpg</text>
+        <rect x="960" y="888" width="200" height="64" rx="6" fill="#f5f5f5"/>
+        <rect x="960" y="888" width="200" height="64" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+        <rect x="968" y="894" width="24" height="12" rx="2" fill="none" stroke="#2d3142" stroke-opacity="0.40" stroke-width="0.8"/>
+        <text x="980" y="903" fill="#4f5d75" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.08em">OUT</text>
+        <text x="1060" y="922" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Report</text>
+        <text x="1060" y="938" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">JSON / Markdown</text>
+        <line x1="40" y1="1000" x2="1240" y2="1000" stroke="#2d3142" stroke-opacity="0.10" stroke-width="0.8"/>
+        <text x="40" y="1016" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.18em">LEGEND</text>
+        <rect x="40" y="1032" width="14" height="10" rx="2" fill="#00c83c" fill-opacity="0.08" stroke="#00c83c" stroke-width="1"/>
+        <text x="60" y="1040" fill="#4f5d75" font-size="8.5" font-family="'Geist', sans-serif">Focal: gate / findings</text>
+        <rect x="220" y="1032" width="14" height="10" rx="2" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+        <text x="240" y="1040" fill="#4f5d75" font-size="8.5" font-family="'Geist', sans-serif">Processing step</text>
+        <rect x="400" y="1032" width="14" height="10" rx="2" fill="#2d3142" fill-opacity="0.05" stroke="#4f5d75" stroke-width="1"/>
+        <text x="420" y="1040" fill="#4f5d75" font-size="8.5" font-family="'Geist', sans-serif">Store / reference</text>
+        <rect x="580" y="1032" width="14" height="10" rx="2" fill="#2d3142" fill-opacity="0.03" stroke="#2d3142" stroke-opacity="0.30" stroke-width="1"/>
+        <text x="600" y="1040" fill="#4f5d75" font-size="8.5" font-family="'Geist', sans-serif">Live call to target</text>
+        <rect x="760" y="1032" width="14" height="10" rx="2" fill="#4f5d75" fill-opacity="0.10" stroke="#7a8399" stroke-width="1"/>
+        <text x="780" y="1040" fill="#4f5d75" font-size="8.5" font-family="'Geist', sans-serif">Entry point</text>
+      </svg>

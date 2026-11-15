@@ -40,8 +40,37 @@ The work follows the \gls{dsr} methodology \citep{hevner2004design}, which is su
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\linewidth]{images/dsr.png}
-    \caption{Design Science Research process (adapted from \citep{hevner2004design}).}
+    \begin{tikzpicture}[font=\small, >=stealth,
+        dsrstep/.style={draw=accentdark, fill=accent, text=white, font=\small\bfseries, minimum width=4.2cm, minimum height=0.85cm},
+        flow/.style={->, thick, accentdark}]
+      \node[font=\bfseries] at (-4.6,4.1) {Knowledge Flows};
+      \node[font=\bfseries] at (0,4.1) {Process Steps};
+      \node[font=\bfseries] at (4.9,4.1) {Outputs};
+      \draw[accentdark] (-6.4,3.75) -- (6.6,3.75);
+      \foreach \name/\y in {Awareness of Problem/3, Suggestion/1.7, Development/0.4, Evaluation/-0.9, Conclusion/-2.2}
+        \node[dsrstep] (\name) at (0,\y) {\name};
+      \draw[flow] (Awareness of Problem) -- (Suggestion);
+      \draw[flow] (Suggestion) -- (Development);
+      \draw[flow] (Development) -- (Evaluation);
+      \draw[flow] (Evaluation) -- (Conclusion);
+      \draw[flow] (0,3.75) -- (Awareness of Problem.north);
+      \node[ellipse, draw=accentdark, fill=accent, text=white, font=\footnotesize\bfseries, align=center, minimum width=3cm, minimum height=1.3cm] (kc) at (-4.6,2.1) {Knowledge\\Contribution};
+      \draw[flow] (kc.north) |- (Awareness of Problem.west);
+      \draw[flow] (kc.west) -- ++(-0.8,0);
+      \draw[flow] (Development.west) -- (-3.6,0.4);
+      \draw[flow] (Evaluation.west) -- (-3.6,-0.9);
+      \draw[flow] (-3.6,-0.9) -- (-3.6,1.5);
+      \node[font=\footnotesize] at (-3.9,0.95) [left] {Circumscription};
+      \draw[flow] (Conclusion.west) -| (-5.2,1.45);
+      \node[font=\footnotesize, align=left] at (-5.3,-2.75) {Operation and Goal\\Knowledge};
+      \node[draw=accentdark, dashed, thick, minimum width=3.6cm, minimum height=2.2cm] at (4.9,2.35) {};
+      \node at (4.9,2.85) {Proposal};
+      \node at (4.9,1.85) {Tentative Design};
+      \node at (4.9,0.4) {Artifact};
+      \node at (4.9,-0.9) {Performance Measures};
+      \node at (4.9,-2.2) {Results};
+    \end{tikzpicture}
+    \caption[Design Science Research process]{Design Science Research process (adapted from \citep{hevner2004design}).\llmgen}
     \label{fig:dsr_methodology}
 \end{figure}
 
@@ -50,4 +79,4 @@ The research was structured into five stages aligned with the \gls{dsr} cycle. P
 \section{Document Structure}
 \label{sec:structure}
 
-The remainder of this dissertation is organized into five chapters. Chapter~\ref{chap:background} presents the theoretical framework, covering \glspl{llm}, the Model Context Protocol, and the cybersecurity concepts that underpin the work. Chapter~\ref{chap:architecture} describes the architecture of the proposed solution, including its two analysis paths, the shared taxonomy, and the main design decisions. Chapter~\ref{chap:implementation} details the implementation of each module. Chapter~\ref{chap:results} reports the evaluation, including the test targets, benchmarks, and a discussion of the results. Chapter~\ref{chap:conclusion} concludes and outlines directions for future work.
+The remainder of this dissertation is organized into four chapters. Chapter~\ref{chap:background} presents the theoretical framework, covering \glspl{llm}, the Model Context Protocol, and the cybersecurity concepts that underpin the work. Chapter~\ref{chap:architecture} describes the proposed solution, its architecture and its implementation: the two analysis paths, the shared taxonomy, how each component is built, the main design decisions, and the testing setup. Chapter~\ref{chap:results} reports the evaluation, including the test targets, benchmarks, and a discussion of the results. Chapter~\ref{chap:conclusion} concludes and outlines directions for future work.

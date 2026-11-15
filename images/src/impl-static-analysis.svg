@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="static-analysis-flow-findings-title static-analysis-flow-findings-desc" id="static-analysis-flow-findings-root">
+        <title id="static-analysis-flow-findings-title">Analysis flow, stages 3 to 5</title>
+        <desc id="static-analysis-flow-findings-desc">The inventory records what the server exposes, versioning reads declared MCP versions, and bandit hits that map to a PentestCategory are attributed to a tool and given remediation before landing in the result JSON.</desc>
+        <defs>
+      <style>@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500;600&amp;family=Noto+Serif:ital@0;1&amp;family=Noto+Sans+KR:wght@400;500;600&amp;family=Noto+Serif+KR:wght@400&amp;family=Noto+Sans+TC:wght@400;500;600&amp;family=Noto+Serif+TC:wght@400&amp;display=swap');
+      #static-analysis-flow-findings-root { --color-paper:   #f5f5f5;
+      --color-ink:     #2d3142;
+      --color-muted:   #4f5d75;
+      --font-sans:     'Geist', system-ui, sans-serif;
+      --font-serif:    'Instrument Serif', serif;
+      --font-mono:     'Geist Mono', ui-monospace, monospace; }
+      #static-analysis-flow-findings-root { font-family: var(--font-sans); color: var(--color-ink); }
+      #static-analysis-flow-findings-root .diagram-container { width: 100%; overflow-x: auto; }
+      #static-analysis-flow-findings-root .diagram-container { overflow-x: visible; }</style>
+          <marker id="static-analysis-flow-findings-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#4f5d75"/></marker>
+          <marker id="static-analysis-flow-findings-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#00c83c"/></marker>
+          <marker id="static-analysis-flow-findings-arrow-link" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#2e5aa8"/></marker>
+        </defs>
+        <rect width="100%" height="100%" fill="#f5f5f5"/>
+        <rect x="240" y="80" width="336" height="256" rx="8" fill="#2d3142" fill-opacity="0.02" stroke="#2d3142" stroke-opacity="0.10" stroke-width="0.8"/>
+        <rect x="252" y="84" width="216" height="12" rx="2" fill="#f5f5f5"/>
+        <text x="360" y="93" fill="#2d3142" fill-opacity="0.55" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.14em">3 · MCP_INVENTORY.PY · WHAT IT EXPOSES</text>
+        <rect x="240" y="368" width="336" height="208" rx="8" fill="#2d3142" fill-opacity="0.02" stroke="#2d3142" stroke-opacity="0.10" stroke-width="0.8"/>
+        <rect x="252" y="372" width="104" height="12" rx="2" fill="#f5f5f5"/>
+        <text x="304" y="381" fill="#2d3142" fill-opacity="0.55" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.14em">4 · VERSIONING.PY</text>
+        <rect x="640" y="80" width="424" height="412" rx="8" fill="#2d3142" fill-opacity="0.02" stroke="#2d3142" stroke-opacity="0.10" stroke-width="0.8"/>
+        <rect x="652" y="84" width="244" height="12" rx="2" fill="#f5f5f5"/>
+        <text x="774" y="93" fill="#2d3142" fill-opacity="0.55" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.14em">5 · RISK_RULES.PY · WHAT AN ATTACKER CAN DO</text>
+        <path d="M200,144 H264" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#static-analysis-flow-findings-arrow)"/>
+        <path d="M552,228 H584 Q592,228 592,220 V140 Q592,132 600,132 H664" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#static-analysis-flow-findings-arrow)"/>
+        <path d="M200,352 H604 Q612,352 612,344 V164 Q612,156 620,156 H664" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#static-analysis-flow-findings-arrow)"/>
+        <path d="M200,436 H264" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#static-analysis-flow-findings-arrow)"/>
+        <path d="M416,464 V496" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#static-analysis-flow-findings-arrow)"/>
+        <path d="M752,172 V196" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#static-analysis-flow-findings-arrow)"/>
+        <path d="M856,244 H888" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#static-analysis-flow-findings-arrow)"/>
+        <path d="M752,292 V324" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#static-analysis-flow-findings-arrow)"/>
+        <path d="M752,380 V412" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#static-analysis-flow-findings-arrow)"/>
+        <path d="M520,120 V64 Q520,56 528,56 H1152 Q1160,56 1160,64 V400" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#static-analysis-flow-findings-arrow)"/>
+        <path d="M840,440 H1080" fill="none" stroke="#00c83c" stroke-width="1.4" marker-end="url(#static-analysis-flow-findings-arrow-accent)"/>
+        <path d="M568,524 H1080" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#static-analysis-flow-findings-arrow)"/>
+        <rect x="862" y="225" width="20" height="12" rx="2" fill="#f5f5f5"/>
+        <text x="872" y="234" fill="#7a8399" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.04em">NO</text>
+        <rect x="760" y="302" width="24" height="12" rx="2" fill="#f5f5f5"/>
+        <text x="772" y="311" fill="#7a8399" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.04em">YES</text>
+        <rect x="40" y="116" width="160" height="56" rx="6" fill="#f5f5f5"/>
+        <rect x="40" y="116" width="160" height="56" rx="6" fill="#4f5d75" fill-opacity="0.10" stroke="#7a8399" stroke-width="1"/>
+        <text x="120.0" y="141" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">AST per file</text>
+        <text x="120.0" y="156" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">from parser.py</text>
+        <rect x="40" y="324" width="160" height="56" rx="6" fill="#f5f5f5"/>
+        <rect x="40" y="324" width="160" height="56" rx="6" fill="#4f5d75" fill-opacity="0.10" stroke="#7a8399" stroke-width="1"/>
+        <text x="120.0" y="349" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">FileRecord list</text>
+        <text x="120.0" y="364" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">from discovery.py</text>
+        <rect x="40" y="408" width="160" height="56" rx="6" fill="#f5f5f5"/>
+        <rect x="40" y="408" width="160" height="56" rx="6" fill="#4f5d75" fill-opacity="0.10" stroke="#7a8399" stroke-width="1"/>
+        <text x="120.0" y="433" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Repository root</text>
+        <text x="120.0" y="448" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">target checkout</text>
+        <rect x="264" y="120" width="288" height="192" rx="6" fill="#f5f5f5"/>
+        <rect x="264" y="120" width="288" height="192" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+        <text x="408" y="141" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Walk each AST</text>
+        <text x="408" y="156" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">build_mcp_inventory</text>
+        <line x1="264" y1="168" x2="552" y2="168" stroke="#2d3142" stroke-opacity="0.12" stroke-width="0.8"/>
+        <text x="276" y="184" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace">MCP / FastMCP imports</text>
+        <line x1="264" y1="192" x2="552" y2="192" stroke="#2d3142" stroke-opacity="0.12" stroke-width="0.8"/>
+        <text x="276" y="208" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace">Server instantiation</text>
+        <line x1="264" y1="216" x2="552" y2="216" stroke="#2d3142" stroke-opacity="0.12" stroke-width="0.8"/>
+        <text x="276" y="232" fill="#2d3142" font-size="9" font-family="'Geist Mono', monospace" font-weight="500">tools · resources · prompts + line ranges</text>
+        <line x1="264" y1="240" x2="552" y2="240" stroke="#2d3142" stroke-opacity="0.12" stroke-width="0.8"/>
+        <text x="276" y="256" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace">Transport hints</text>
+        <line x1="264" y1="264" x2="552" y2="264" stroke="#2d3142" stroke-opacity="0.12" stroke-width="0.8"/>
+        <text x="276" y="280" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace">Auth / middleware hints</text>
+        <line x1="264" y1="288" x2="552" y2="288" stroke="#2d3142" stroke-opacity="0.12" stroke-width="0.8"/>
+        <text x="276" y="304" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace">Dynamic registrations → coverage_limitations</text>
+        <rect x="264" y="408" width="304" height="56" rx="6" fill="#f5f5f5"/>
+        <rect x="264" y="408" width="304" height="56" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+        <text x="416.0" y="433" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Read dependency files</text>
+        <text x="416.0" y="448" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">requirements*.txt · pyproject.toml</text>
+        <rect x="264" y="496" width="304" height="56" rx="6" fill="#f5f5f5"/>
+        <rect x="264" y="496" width="304" height="56" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+        <text x="416.0" y="521" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Declared mcp / fastmcp versions</text>
+        <text x="416.0" y="536" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">PEP 508 incl. extras · poetry tables</text>
+        <rect x="664" y="116" width="176" height="56" rx="6" fill="#f5f5f5"/>
+        <rect x="664" y="116" width="176" height="56" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+        <text x="752.0" y="141" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Run bandit</text>
+        <text x="752.0" y="156" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">same file set</text>
+        <polygon points="752,196 856,244 752,292 648,244" fill="#f5f5f5"/>
+        <polygon points="752,196 856,244 752,292 648,244" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+        <text x="752" y="240" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">test_id maps to</text>
+        <text x="752" y="255" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">a PentestCategory?</text>
+        <rect x="888" y="220" width="160" height="48" rx="6" fill="#f5f5f5"/>
+        <rect x="888" y="220" width="160" height="48" rx="6" fill="#2d3142" fill-opacity="0.02" stroke="#2d3142" stroke-opacity="0.20" stroke-width="1" stroke-dasharray="4,3"/>
+        <text x="968.0" y="241" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Drop</text>
+        <text x="968.0" y="256" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">real lint, wrong taxonomy</text>
+        <rect x="664" y="324" width="176" height="56" rx="6" fill="#f5f5f5"/>
+        <rect x="664" y="324" width="176" height="56" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+        <text x="752.0" y="349" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Attribute to tool</text>
+        <text x="752.0" y="364" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">line range holds the hit</text>
+        <rect x="664" y="412" width="176" height="56" rx="6" fill="#f5f5f5"/>
+        <rect x="664" y="412" width="176" height="56" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+        <text x="752.0" y="437" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Attach remediation</text>
+        <text x="752.0" y="452" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">security_practices catalog</text>
+        <rect x="1080" y="400" width="160" height="160" rx="6" fill="#f5f5f5"/>
+        <rect x="1080" y="400" width="160" height="160" rx="6" fill="#00c83c" fill-opacity="0.08" stroke="#00c83c" stroke-width="1"/>
+        <text x="1160.0" y="477" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">StaticAnalysisResult</text>
+        <text x="1160.0" y="492" fill="#4f5d75" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">JSON</text>
+        <line x1="40" y1="640" x2="1240" y2="640" stroke="#2d3142" stroke-opacity="0.10" stroke-width="0.8"/>
+        <text x="40" y="656" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.18em">LEGEND</text>
+        <rect x="40" y="672" width="24" height="12" rx="2" fill="#4f5d75" fill-opacity="0.10" stroke="#7a8399" stroke-width="1"/>
+        <text x="72" y="681" fill="#4f5d75" font-size="8.5" font-family="'Geist', sans-serif">From stages 1-2</text>
+        <rect x="184.5" y="672" width="24" height="12" rx="2" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+        <text x="216.5" y="681" fill="#4f5d75" font-size="8.5" font-family="'Geist', sans-serif">Step</text>
+        <polygon points="272.9,678 284.9,672 296.9,678 284.9,684" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+        <text x="304.9" y="681" fill="#4f5d75" font-size="8.5" font-family="'Geist', sans-serif">Decision</text>
+        <rect x="381.7" y="672" width="24" height="12" rx="2" fill="#2d3142" fill-opacity="0.02" stroke="#2d3142" stroke-opacity="0.20" stroke-width="1" stroke-dasharray="4,3"/>
+        <text x="413.7" y="681" fill="#4f5d75" font-size="8.5" font-family="'Geist', sans-serif">Dropped</text>
+        <rect x="485.4" y="672" width="24" height="12" rx="2" fill="#00c83c" fill-opacity="0.08" stroke="#00c83c" stroke-width="1"/>
+        <text x="517.4" y="681" fill="#4f5d75" font-size="8.5" font-family="'Geist', sans-serif">Final result</text>
+        <line x1="614.5999999999999" y1="678" x2="638.5999999999999" y2="678" stroke="#00c83c" stroke-width="1.2" marker-end="url(#static-analysis-flow-findings-arrow-accent)"/>
+        <text x="646.5999999999999" y="681" fill="#4f5d75" font-size="8.5" font-family="'Geist', sans-serif">Findings path</text>
+      </svg>
